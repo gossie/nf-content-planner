@@ -12,4 +12,10 @@
     <name>nf-content-planner-core</name>
     <description>Demo to deploy frontend and backend</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+    </dependencies>
 </project>
