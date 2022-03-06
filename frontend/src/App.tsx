@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { Course } from './model';
 
 function App() {
 
-    const [greeting, setGreeting] = useState('')
+    const [courses, setCourses] = useState([] as Array<Course>)
 
     useEffect(() => {
-        fetch('/api/greeting', {
-            method: 'GET',
-            headers: {
-                'Accept': 'text/plain'
-            }
-        })
-            .then(response => response.text())
-            .then(text => setGreeting(text))
-            .catch(err => setGreeting('Da ist etwas schief gelaufen'));
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses`)
+            .then(response => response.json())
+            .then((courses: Array<Course>) => setCourses(courses));
     }, []);
+
+
 
     return (
         <div>
-            {greeting}
+            { courses.map(c => <div>{c.name}</div>) }
         </div>
     );
 }

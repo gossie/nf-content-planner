@@ -8,6 +8,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/courses")
+@CrossOrigin
 public class CourseController {
 
     private final CourseService courseService;
