@@ -1,5 +1,6 @@
 package com.github.gossie.nf.planner;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CourseRepository {
@@ -8,4 +9,6 @@ public interface CourseRepository {
     Optional<Course> get(String id);
 
     Course save(Course course);
+
+    List<Course> getAll();
 }

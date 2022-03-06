@@ -2,6 +2,7 @@ package com.github.gossie.nf.planner;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,5 +32,10 @@ class DefaultCourseService implements CourseService {
                     courseRepository.save(course);
                     return createdTopic;
                 });
+    }
+
+    @Override
+    public List<Course> determineCourses() {
+        return courseRepository.getAll();
     }
 }

@@ -1,4 +1,4 @@
 package com.github.gossie.nf.planner;
 
-public record TopicDTO(String name, String description) {
+public record TopicDTO(String id, String name, String description) {
 }

@@ -1,5 +1,6 @@
 package com.github.gossie.nf.planner;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CourseService {
@@ -8,4 +9,6 @@ public interface CourseService {
     Optional<Course> determineCourse(String id);
 
     Optional<Topic> createTopic(String courseId, Topic topic);
+
+    List<Course> determineCourses();
 }
