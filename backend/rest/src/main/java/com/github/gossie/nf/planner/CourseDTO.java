@@ -1,4 +1,6 @@
 package com.github.gossie.nf.planner;
 
-record CourseDTO(String name) {
+import java.util.List;
+
+record CourseDTO(String name, List<TopicDTO> topics) {
 }

@@ -11,9 +11,9 @@ import java.net.URI;
 public class CourseController {
 
     private final CourseService courseService;
-    private final CourseMapper courseMapper;
+    private final CourseDTOMapper courseMapper;
 
-    public CourseController(CourseService courseService, CourseMapper courseMapper) {
+    public CourseController(CourseService courseService, CourseDTOMapper courseMapper) {
         this.courseService = courseService;
         this.courseMapper = courseMapper;
     }
@@ -25,6 +25,12 @@ public class CourseController {
         return ResponseEntity
                 .created(URI.create("/api/courses/" + createdCourse.id()))
                 .build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CourseDTO> getCourse(@PathVariable String id) {
+        return ResponseEntity.of(courseService.determineCourse(id)
+                .map(courseMapper::map));
     }
 
 }
