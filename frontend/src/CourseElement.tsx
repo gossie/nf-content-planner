@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Course } from "./model";
 import TopicElement from "./TopicElement";
 
@@ -40,7 +40,8 @@ export default function CourseElement() {
         <div>
             { course.name &&
                 <div>
-                    <div>Name: {course.name}</div>
+                    <h1>{course.name}</h1>
+                    <Link to="/courses">Zurück</Link>
                     <div>
                         <h2>Topics</h2>
                         <div>
