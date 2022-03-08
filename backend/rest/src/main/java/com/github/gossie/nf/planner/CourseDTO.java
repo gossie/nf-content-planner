@@ -6,7 +6,7 @@ import java.util.List;
 
 record CourseDTO(String id, String name, List<TopicDTO> topics) {
 
-    public List<Link> links() {
+    public List<Link> getLinks() {
         return List.of(
                 Link.of("/api/courses/" + id, "self"),
                 Link.of("/api/courses/" + id + "/topics", "create-topic")

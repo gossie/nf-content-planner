@@ -26,13 +26,13 @@ services:
       - DATABASE_PORT=27017
     restart: unless-stopped
 
-  frontend:
-    build: ./frontend
-    depends_on:
-      - app
-    expose:
-      - 80
-    restart: unless-stopped
+#  frontend:
+#    build: ./frontend
+#    depends_on:
+#      - app
+#    expose:
+#      - 80
+#    restart: unless-stopped
 
 volumes:
   db-data:
