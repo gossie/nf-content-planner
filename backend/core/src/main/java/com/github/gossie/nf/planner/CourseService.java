@@ -11,4 +11,6 @@ public interface CourseService {
     Optional<Topic> createTopic(String courseId, Topic topic);
 
     List<Course> determineCourses();
+
+    void deleteTopic(String courseId, String topicId);
 }

@@ -38,4 +38,11 @@ class DefaultCourseService implements CourseService {
     public List<Course> determineCourses() {
         return courseRepository.getAll();
     }
+
+    @Override
+    public void deleteTopic(String courseId, String topicId) {
+        courseRepository.get(courseId)
+                .map(course -> course.removeTopic(topicId))
+                .ifPresent(courseRepository::save);
+    }
 }

@@ -13,10 +13,18 @@ class CourseDTOMapper {
     }
 
     public Course map(CourseDTO course) {
-        return new Course(course.id(), course.name(), new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()));
+        return new Course(
+                course.id(),
+                course.name(),
+                new ArrayList<>(course.topics().stream().map(topicMapper::map).toList())
+        );
     }
 
     public CourseDTO map(Course course) {
-        return new CourseDTO(course.id(), course.name(), new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()));
+        return new CourseDTO(
+                course.id(),
+                course.name(),
+                new ArrayList<>(course.topics().stream().map(t -> topicMapper.map(t, course.id())).toList())
+        );
     }
 }

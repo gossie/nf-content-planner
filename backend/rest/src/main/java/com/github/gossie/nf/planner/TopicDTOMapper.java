@@ -9,8 +9,8 @@ public class TopicDTOMapper {
         return new Topic(topic.id(), topic.name(), topic.description());
     }
 
-    public TopicDTO map(Topic topic) {
-        return new TopicDTO(topic.id(), topic.name(), topic.description());
+    public TopicDTO map(Topic topic, String courseId) {
+        return new TopicDTO(topic.id(), topic.name(), topic.description(), courseId);
     }
 
 }

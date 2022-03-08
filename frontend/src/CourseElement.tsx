@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Course } from "./model";
+import TopicElement from "./TopicElement";
 
 export default function CourseElement() {
 
@@ -28,7 +29,11 @@ export default function CourseElement() {
                 description: newTopicDescription
             })
         })
-        .then(() => fetchCourse());
+        .then(() => {
+            setNewTopicName('');
+            setNewTopicDescription('');
+            fetchCourse();
+        });
     };
 
     return (
@@ -44,7 +49,7 @@ export default function CourseElement() {
                             <button onClick={addTopic}>Speichern</button>
                         </div>
                         <ul>
-                            {course.topics.map(t => <li key={t.id}>{t.name}</li>)}
+                            {course.topics.map(t => <li key={t.id}><TopicElement topic={t} onTopicDeletion={fetchCourse} /></li>)}
                         </ul>
                     </div>
                 </div>

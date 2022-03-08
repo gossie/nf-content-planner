@@ -29,4 +29,9 @@ public class TopicController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{topicId}")
+    public void deleteTopic(@PathVariable String courseId, @PathVariable String topicId) {
+        courseService.deleteTopic(courseId, topicId);
+    }
+
 }
