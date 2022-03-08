@@ -10,8 +10,8 @@ export default function CourseElement() {
 
     const fetchCourse = useCallback(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}/api/courses/${params.courseId}`)
-        .then(response => response.json())
-        .then((course: Course) => setCourse(course));
+            .then(response => response.json())
+            .then((course: Course) => setCourse(course));
     }, [params.courseId]);
 
     useEffect(() => fetchCourse(), [fetchCourse]);
@@ -23,17 +23,21 @@ export default function CourseElement() {
 
     return (
         <div>
-            <div>Name: {course.name}</div>
-            <div>
-                <h2>Topics</h2>
+            { course.name &&
                 <div>
-                    <input type="text" placeholder="Topic" value={newTopic} onChange={ev => setNewTopic(ev.target.value)} />
-                    <button onClick={addTopic}>Speichern</button>
+                    <div>Name: {course.name}</div>
+                    <div>
+                        <h2>Topics</h2>
+                        <div>
+                            <input type="text" placeholder="Topic" value={newTopic} onChange={ev => setNewTopic(ev.target.value)} />
+                            <button onClick={addTopic}>Speichern</button>
+                        </div>
+                        <ul>
+                            {course.topics.map(t => <li key={t.id}>{t.name}</li>)}
+                        </ul>
+                    </div>
                 </div>
-                <ul>
-                    {course.topics.map(t => <li key={t.id}>{t.name}</li>)}
-                </ul>
-            </div>
+            }
         </div>
     )
 }
