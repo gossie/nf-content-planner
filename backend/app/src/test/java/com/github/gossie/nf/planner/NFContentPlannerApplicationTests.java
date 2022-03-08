@@ -30,10 +30,10 @@ class NFContentPlannerApplicationTests {
 		ResponseEntity<CourseDTO> notFoundResponse = restTemplate.getForEntity("/api/courses/notFound", CourseDTO.class);
 		assertThat(notFoundResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 
-		ResponseEntity<Void> topicPostResponse = restTemplate.postForEntity(location.toString() + "/topics", new TopicDTO(null, "Bitweise Operatoren", "Dies und das"), Void.class);
+		ResponseEntity<Void> topicPostResponse = restTemplate.postForEntity(location.toString() + "/topics", new TopicDTO(null, "Bitweise Operatoren", "Dies und das", ""), Void.class);
 		assertThat(topicPostResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
-		ResponseEntity<Void> notFoundPostResponse = restTemplate.postForEntity("/api/courses/notFound/topics", new TopicDTO(null, "Bitweise Operatoren", "Dies und das"), Void.class);
+		ResponseEntity<Void> notFoundPostResponse = restTemplate.postForEntity("/api/courses/notFound/topics", new TopicDTO(null, "Bitweise Operatoren", "Dies und das", ""), Void.class);
 		assertThat(notFoundPostResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 
 		ResponseEntity<CourseDTO> getResponse2 = restTemplate.getForEntity(location, CourseDTO.class);
