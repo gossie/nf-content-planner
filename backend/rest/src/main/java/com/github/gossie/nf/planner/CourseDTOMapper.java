@@ -16,7 +16,7 @@ class CourseDTOMapper {
         return new Course(
                 course.id(),
                 course.name(),
-                new ArrayList<>(course.topics().stream().map(topicMapper::map).toList())
+                course.topics() != null ? new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()) : new ArrayList<>()
         );
     }
 
