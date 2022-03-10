@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document
+@Document(collection = "courses")
 record CourseDocument(@Id String id, String name, List<TopicDocument> topics) {
 }
