@@ -37,4 +37,13 @@ class DefaultCourseRepository implements CourseRepository {
                 .map(courseMapper::map)
                 .toList();
     }
+
+    @Override
+    public Optional<Course> deleteCourse(String id) {
+        return courseDocumentRepository.findById(id)
+                .map(course -> {
+                    courseDocumentRepository.delete(course);
+                    return courseMapper.map(course);
+                });
+    }
 }

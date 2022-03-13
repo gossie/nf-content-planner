@@ -1,0 +1,8 @@
+{
+    "placeholderCourseName": "Kursname",
+    "buttonCreateCourse": "Kurs erstellen",
+    "buttonDeleteCourse": "Kurs löschen",
+    "headlineTopics": "Themen",
+    "back": "Zurück",
+    "votes": "Du hast noch {{votes}} Stimmen."
+}

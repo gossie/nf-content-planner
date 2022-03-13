@@ -13,4 +13,6 @@ public interface CourseService {
     List<Course> determineCourses();
 
     void deleteTopic(String courseId, String topicId);
+
+    Optional<Course> deleteCourse(String id);
 }

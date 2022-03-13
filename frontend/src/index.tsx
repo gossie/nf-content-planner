@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
@@ -6,16 +6,21 @@ import Courses from './Courses';
 import CourseElement from './CourseElement';
 import reportWebVitals from './reportWebVitals';
 
+import "./i18n";
+import "./index.css";
+
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<App />}>
-                    <Route path="courses" element={<Courses />} />
-                    <Route path="courses/:courseId" element={<CourseElement />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <Suspense fallback="Loading...">
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<App />}>
+                        <Route path="courses" element={<Courses />} />
+                        <Route path="courses/:courseId" element={<CourseElement />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </Suspense>
     </React.StrictMode>,
   document.getElementById('root')
 );

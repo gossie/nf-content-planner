@@ -45,4 +45,9 @@ class DefaultCourseService implements CourseService {
                 .map(course -> course.removeTopic(topicId))
                 .ifPresent(courseRepository::save);
     }
+
+    @Override
+    public Optional<Course> deleteCourse(String id) {
+        return courseRepository.deleteCourse(id);
+    }
 }

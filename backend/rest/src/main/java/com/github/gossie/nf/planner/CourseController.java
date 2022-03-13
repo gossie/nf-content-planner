@@ -42,4 +42,10 @@ public class CourseController {
                 .build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CourseDTO> deleteCourse(@PathVariable String id) {
+        return ResponseEntity.of(courseService.deleteCourse(id)
+                .map(courseMapper::map));
+    }
+
 }

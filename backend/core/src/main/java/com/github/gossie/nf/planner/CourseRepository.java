@@ -11,4 +11,6 @@ public interface CourseRepository {
     Course save(Course course);
 
     List<Course> getAll();
+
+    Optional<Course> deleteCourse(String id);
 }
