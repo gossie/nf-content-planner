@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Button from "./common-elements/Button";
 import { Course } from "./model";
 import TopicElement from "./TopicElement";
@@ -11,7 +11,6 @@ export default function CourseElement() {
     const [course, setCourse] = useState({} as Course);
     const [newTopicName, setNewTopicName] = useState('');
     const [newTopicDescription, setNewTopicDescription] = useState('');
-    const navigate = useNavigate();
 
     const { t } = useTranslation();
 
