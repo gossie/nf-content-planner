@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "./common-elements/Button";
 import { Course } from "./model";
 import TopicElement from "./TopicElement";
@@ -41,16 +41,16 @@ export default function CourseElement() {
         });
     };
 
-    const deleteCourse = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'self')?.href}`, {
-            method: 'DELETE'
-        })
-        .then(() => {
-            setNewTopicName('');
-            setNewTopicDescription('');
-            navigate('/courses');
-        })
-    };
+    // const deleteCourse = () => {
+    //     fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'self')?.href}`, {
+    //         method: 'DELETE'
+    //     })
+    //     .then(() => {
+    //         setNewTopicName('');
+    //         setNewTopicDescription('');
+    //         navigate('/courses');
+    //     })
+    // };
 
     return (
         <div className="container mx-auto">
