@@ -12,7 +12,7 @@ class CourseDTOMapper {
         this.topicMapper = topicMapper;
     }
 
-    public Course map(CourseDTO course) {
+    Course map(CourseDTO course) {
         return new Course(
                 course.id(),
                 course.name(),
@@ -21,7 +21,7 @@ class CourseDTOMapper {
         );
     }
 
-    public CourseDTO map(Course course) {
+    CourseDTO map(Course course) {
         return new CourseDTO(
                 course.id(),
                 course.name(),
