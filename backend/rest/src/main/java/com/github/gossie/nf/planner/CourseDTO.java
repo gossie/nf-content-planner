@@ -5,7 +5,7 @@ import org.springframework.hateoas.Link;
 import java.util.ArrayList;
 import java.util.List;
 
-record CourseDTO(String id, String name, List<TopicDTO> topics) {
+record CourseDTO(String id, String name, int votes, List<TopicDTO> topics) {
 
     public List<Link> getLinks() {
         return new ArrayList<>(List.of(

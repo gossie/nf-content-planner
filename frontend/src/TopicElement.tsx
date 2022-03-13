@@ -1,4 +1,4 @@
-import { XIcon } from "@heroicons/react/solid";
+import { CheckIcon, XIcon } from "@heroicons/react/solid";
 import { Topic } from "./model"
 
 interface TopicElementProps {
@@ -22,6 +22,7 @@ export default function TopicElement(props: TopicElementProps) {
                 <XIcon className="h-5 w-5 text-blue-500 text-right cursor-pointer" onClick={deleteTopic} />
             </div>
             <p className="text-slate-500 text-sm">{props.topic.description}</p>
+            <CheckIcon className="h-5 w-5 text-blue-500 text-right cursor-pointer" />
         </div>
     )
 }
