@@ -40,7 +40,7 @@ public class GithubController {
         );
 
         userService.createUser(new User(null, userResponse.getBody().login()));
-        return return "forward:/index.html/courses";
+        return "forward:/index.html/courses";
     }
 
     HttpHeaders createHeaders(String token){
