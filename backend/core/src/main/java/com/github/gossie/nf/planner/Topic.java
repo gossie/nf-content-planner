@@ -1,4 +1,6 @@
 package com.github.gossie.nf.planner;
 
-public record Topic(String id, String name, String description) {
+import java.util.Set;
+
+public record Topic(String id, String name, String description, Set<String> votes) {
 }

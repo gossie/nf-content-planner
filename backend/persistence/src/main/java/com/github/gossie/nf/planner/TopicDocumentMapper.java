@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 class TopicDocumentMapper {
 
     Topic map(TopicDocument topic) {
-        return new Topic(topic.id(), topic.name(), topic.description());
+        return new Topic(topic.id(), topic.name(), topic.description(), topic.votes());
     }
 
     TopicDocument map(Topic topic) {
-        return new TopicDocument(topic.id(), topic.name(), topic.description());
+        return new TopicDocument(topic.id(), topic.name(), topic.description(), topic.votes());
     }
 
 }
