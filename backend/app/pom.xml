@@ -12,10 +12,14 @@
     <name>nf-content-planner-app</name>
     <description>Demo to deploy frontend and backend</description>
     <dependencies>
-        <!--dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency-->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.github.gossie</groupId>

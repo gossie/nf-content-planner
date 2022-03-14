@@ -1,7 +1,11 @@
 package com.github.gossie.nf.planner;
 
-//@EnableWebSecurity
-public class SecurityConfig/* extends WebSecurityConfigurerAdapter*/ {
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 /*
     private final UserDetailsService userDetailsService;
 
@@ -13,15 +17,17 @@ public class SecurityConfig/* extends WebSecurityConfigurerAdapter*/ {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
+    */
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").authenticated()
-                .and().formLogin()
-                .and().httpBasic();
+                .anyRequest().authenticated()
+                .and()
+                .logout(l -> l.logoutSuccessUrl("/").permitAll())
+                .oauth2Login();
     }
-
+/*
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();

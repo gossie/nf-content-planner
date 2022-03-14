@@ -5,7 +5,7 @@ function App() {
 
     return (
         <div>
-            <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">Login</a>
+            <a href={`${process.env.REACT_APP_BASE_URL}/oauth2/authorization/github`}>Login</a>
             <Outlet />
         </div>
     );
