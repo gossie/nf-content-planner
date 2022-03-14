@@ -25,6 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .logout(l -> l.logoutSuccessUrl("/").permitAll())
+                .formLogin()
+                .and()
                 .oauth2Login();
     }
 /*
