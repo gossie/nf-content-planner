@@ -39,11 +39,16 @@ export default function Registration() {
     return (
         <div>
             <h2 className="text-xl pb-5 font-bold">{t('headlineRegistration')}</h2>
-            <Input placeholder={t('email')} value={email} onChange={setEmail} />
-            <Input placeholder={t('password')} value={password} onChange={setPassword} type="password" />
-            <Input placeholder={t('passwordAgain')} value={passwordAgain} onChange={setPasswordAgain} type="password" />
-            <Button label={t('buttonRegistration')} onClick={register} />
-            { errorMessage && t(errorMessage) }
+            <div>
+                <Input placeholder={t('email')} value={email} onChange={setEmail} />
+                <Input placeholder={t('password')} value={password} onChange={setPassword} type="password" />
+                <Input placeholder={t('passwordAgain')} value={passwordAgain} onChange={setPasswordAgain} type="password" />
+                <Button label={t('buttonRegistration')} onClick={register} />
+                { errorMessage && t(errorMessage) }
+            </div>
+            <div>
+                <a href="/oauth2/authorization/github">GitHub</a>
+            </div>
         </div>
     )
 }
