@@ -2,13 +2,13 @@ package com.github.gossie.nf.planner.course;
 
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 @Component
 class TopicDTOMapper {
 
     Topic map(TopicDTO topic) {
-        return new Topic(topic.id(), topic.name(), topic.description(), new HashSet<>());
+        return new Topic(topic.id(), topic.name(), topic.description(), new ArrayList<>());
     }
 
     TopicDTO map(Topic topic, String courseId) {
