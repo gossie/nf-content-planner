@@ -1,6 +1,8 @@
 package com.github.gossie.nf.planner.user;
 
 import io.jsonwebtoken.Claims;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,12 +31,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String token = getAuthToken(request);
-
-        if(token != null && !token.isBlank()) {
+        System.out.println("method: " + request.getMethod());
+        System.out.println("token: " + token);
+        if (token != null && !token.isBlank()) {
             try {
                 Claims claims = jwtService.extractClaims(token);
                 setSecurityContext(claims.getSubject());
-            }catch (Exception e){
+            } catch (Exception e) {
+                System.out.println("error extracting claim: " + e.getMessage());
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "invalid token");
             }
         }

@@ -12,7 +12,8 @@ class TopicDTOMapper {
     }
 
     TopicDTO map(Topic topic, String courseId) {
-        return new TopicDTO(topic.id(), topic.name(), topic.description(), topic.votes().size(), courseId);
+        int votes = topic.votes() == null ? 0 : topic.votes().size();
+        return new TopicDTO(topic.id(), topic.name(), topic.description(), votes, courseId);
     }
 
 }
