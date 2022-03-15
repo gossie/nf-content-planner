@@ -34,10 +34,9 @@ public class TopicController {
     }
 
     @PatchMapping("/{topicId}")
-    public void vote(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
-        userService.findByEmail(principal.getName()).ifPresent(user -> {
-            courseService.vote(courseId, topicId, user);
-        });
+    public ResponseEntity<Course> vote(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
+        return ResponseEntity.of(userService.findByEmail(principal.getName())
+                .flatMap(user -> courseService.vote(courseId, topicId, user)));
     }
 
     @DeleteMapping("/{topicId}")

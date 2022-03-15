@@ -1,10 +1,11 @@
 import { CheckIcon, XIcon } from "@heroicons/react/solid";
 import { t } from "i18next";
-import { Topic } from "./model"
+import { Course, Topic } from "./model"
 
 interface TopicElementProps {
     topic: Topic;
     onTopicDeletion: () => void;
+    onTopicVote: (course: Course) => void;
 }
 
 export default function TopicElement(props: TopicElementProps) {
@@ -26,7 +27,14 @@ export default function TopicElement(props: TopicElementProps) {
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             }
         })
-        .then(() => props.onTopicDeletion());
+        .then(response => {
+            if (response.status === 200) {
+                return response.json()
+            }
+            throw new Error("error performing vote " + response.status);
+        })
+        .then((course: Course) => props.onTopicVote(course))
+        .catch(e => console.error(e.message, e));
     };
 
     return (
