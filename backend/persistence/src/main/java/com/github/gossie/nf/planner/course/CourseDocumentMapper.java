@@ -1,5 +1,6 @@
 package com.github.gossie.nf.planner.course;
 
+import com.github.gossie.nf.planner.user.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,8 +14,13 @@ class CourseDocumentMapper {
         this.topicMapper = topicMapper;
     }
 
+    CourseDocument map(Course course, User user) {
+        return new CourseDocument(course.id(), course.name(), new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()), user.id());
+    }
+
     CourseDocument map(Course course) {
-        return new CourseDocument(course.id(), course.name(), new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()));
+        // TODO das null am ende
+        return new CourseDocument(course.id(), course.name(), new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()), null);
     }
 
     Course map(CourseDocument course) {

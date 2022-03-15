@@ -1,5 +1,6 @@
 package com.github.gossie.nf.planner.course;
 
+import com.github.gossie.nf.planner.user.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,8 +17,8 @@ class DefaultCourseRepository implements CourseRepository {
     }
 
     @Override
-    public Course create(Course course) {
-        return courseMapper.map(courseDocumentRepository.save(courseMapper.map(course)));
+    public Course create(Course course, User user) {
+        return courseMapper.map(courseDocumentRepository.save(courseMapper.map(course, user)));
     }
 
     @Override

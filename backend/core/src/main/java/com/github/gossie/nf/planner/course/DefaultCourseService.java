@@ -1,6 +1,8 @@
 package com.github.gossie.nf.planner.course;
 
 import com.github.gossie.nf.planner.user.User;
+import com.github.gossie.nf.planner.user.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,14 +13,18 @@ import java.util.Optional;
 class DefaultCourseService implements CourseService {
 
     private final CourseRepository courseRepository;
+    private final UserRepository userRepository;
 
-    public DefaultCourseService(CourseRepository courseRepository) {
+    public DefaultCourseService(CourseRepository courseRepository,UserRepository userRepository) {
         this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public Course createCourse(Course course) {
-        return courseRepository.create(course);
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(IllegalStateException::new);
+        return courseRepository.create(course, user);
     }
 
     @Override
