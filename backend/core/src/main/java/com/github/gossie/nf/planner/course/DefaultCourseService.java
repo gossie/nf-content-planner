@@ -69,7 +69,7 @@ class DefaultCourseService implements CourseService {
 
     @Override
     public long determineNumberOfLeftVotes(String id, User user) {
-        return courseRepository.get(id).stream()
+        return 3 - courseRepository.get(id).stream()
                 .flatMap(course -> course.topics().stream())
                 .flatMap(topic -> topic.votes().stream())
                 .filter(userId -> Objects.equals(userId, user.id()))
