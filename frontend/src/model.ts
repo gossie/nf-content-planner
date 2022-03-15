@@ -9,6 +9,7 @@ export interface Topic {
     id: string;
     name: string;
     description: string;
+    votes: number;
     links: Array<Link>;
 }
 

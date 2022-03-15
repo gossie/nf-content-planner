@@ -15,4 +15,12 @@ public record Course(String id, String name, List<Topic> topics) {
         topics.removeIf(t -> Objects.equals(t.id(), topicId));
         return this;
     }
+
+    public Course vote(String topicId, String userId) {
+        topics.stream()
+                .filter(t -> Objects.equals(t.id(), topicId))
+                .findFirst()
+                .ifPresent(t -> t.votes().add(userId));
+        return this;
+    }
 }

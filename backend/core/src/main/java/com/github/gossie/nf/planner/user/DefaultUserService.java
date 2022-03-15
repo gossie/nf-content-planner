@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 class DefaultUserService implements UserService, UserDetailsService {
 
@@ -18,6 +20,11 @@ class DefaultUserService implements UserService, UserDetailsService {
     @Override
     public User createUser(User user) {
         return userRepository.createUser(user);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override

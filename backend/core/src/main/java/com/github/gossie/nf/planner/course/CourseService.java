@@ -1,5 +1,7 @@
 package com.github.gossie.nf.planner.course;
 
+import com.github.gossie.nf.planner.user.User;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,4 +17,6 @@ public interface CourseService {
     void deleteTopic(String courseId, String topicId);
 
     Optional<Course> deleteCourse(String id);
+
+    Optional<Course> vote(String courseId, String topicId, User user);
 }

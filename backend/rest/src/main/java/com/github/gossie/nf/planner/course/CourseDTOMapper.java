@@ -3,6 +3,7 @@ package com.github.gossie.nf.planner.course;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @Component
 class CourseDTOMapper {
@@ -24,7 +25,7 @@ class CourseDTOMapper {
         return new CourseDTO(
                 course.id(),
                 course.name(),
-                new ArrayList<>(course.topics().stream().map(t -> topicMapper.map(t, course.id())).toList())
+                new ArrayList<>(course.topics().stream().map(t -> topicMapper.map(t, course.id())).sorted(Comparator.comparingInt(TopicDTO::votes)).toList())
         );
     }
 }

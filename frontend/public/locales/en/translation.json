@@ -12,5 +12,6 @@
     "buttonDeleteCourse": "Delete course",
     "headlineTopics": "Topics",
     "back": "Back",
-    "votes": "You've got {{votes}} votes left."
+    "votes": "You've got {{votes}} votes left.",
+    "topicVotes": "{{votes}} votes"
 }

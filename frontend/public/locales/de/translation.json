@@ -12,5 +12,6 @@
     "buttonDeleteCourse": "Kurs löschen",
     "headlineTopics": "Themen",
     "back": "Zurück",
-    "votes": "Du hast noch {{votes}} Stimmen."
+    "votes": "Du hast noch {{votes}} Stimmen.",
+    "topicVotes": "{{votes}} Stimmen"
 }
