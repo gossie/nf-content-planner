@@ -63,7 +63,8 @@ class DefaultCourseService implements CourseService {
     public Optional<Course> vote(String courseId, String topicId, User user) {
         return courseRepository.get(courseId)
                 .filter(course -> checkIfVotesAreLeft(course, user))
-                .map(course -> course.vote(topicId, user.id()));
+                .map(course -> course.vote(topicId, user.id()))
+                .map(courseRepository::save);
     }
 
     private boolean checkIfVotesAreLeft(Course course, User user) {
