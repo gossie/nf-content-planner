@@ -93,7 +93,7 @@ export default function CourseElement() {
                                 <Button label="Speichern" onClick={addTopic} />
                             </div>
                             <ul>
-                                {course.topics.map(t => <li key={t.id}><TopicElement topic={t} onTopicDeletion={fetchCourse} onTopicVote={setCourse} /></li>)}
+                                {course.topics.map(t => <li key={t.id}><TopicElement topic={t} onTopicDeletion={() => {fetchCourse(); fetchLeftVotes();}} onTopicVote={(course: Course) => {setCourse(course); fetchLeftVotes();}} /></li>)}
                             </ul>
                         </div>
                     </div>
