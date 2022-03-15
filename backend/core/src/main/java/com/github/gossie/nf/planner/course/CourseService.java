@@ -19,4 +19,6 @@ public interface CourseService {
     Optional<Course> deleteCourse(String id);
 
     Optional<Course> vote(String courseId, String topicId, User user);
+
+    long determineNumberOfLeftVotes(String id, User user);
 }

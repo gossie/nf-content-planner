@@ -31,14 +31,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String token = getAuthToken(request);
-        System.out.println("method: " + request.getMethod());
-        System.out.println("token: " + token);
         if (token != null && !token.isBlank()) {
             try {
                 Claims claims = jwtService.extractClaims(token);
                 setSecurityContext(claims.getSubject());
             } catch (Exception e) {
-                System.out.println("error extracting claim: " + e.getMessage());
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "invalid token");
             }
         }

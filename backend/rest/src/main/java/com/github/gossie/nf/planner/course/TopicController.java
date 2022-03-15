@@ -10,7 +10,6 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/courses/{courseId}/topics")
-@CrossOrigin("http://localhost:3000")
 public class TopicController {
 
     private final UserService userService;

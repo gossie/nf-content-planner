@@ -67,6 +67,15 @@ class DefaultCourseService implements CourseService {
                 .map(courseRepository::save);
     }
 
+    @Override
+    public long determineNumberOfLeftVotes(String id, User user) {
+        return courseRepository.get(id).stream()
+                .flatMap(course -> course.topics().stream())
+                .flatMap(topic -> topic.votes().stream())
+                .filter(userId -> Objects.equals(userId, user.id()))
+                .count();
+    }
+
     private boolean checkIfVotesAreLeft(Course course, User user) {
         return course.topics().stream()
                 .filter(t -> t.votes() != null)

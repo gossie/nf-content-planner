@@ -12,6 +12,7 @@ export default function CourseElement() {
     const [course, setCourse] = useState({} as Course);
     const [newTopicName, setNewTopicName] = useState('');
     const [newTopicDescription, setNewTopicDescription] = useState('');
+    const [leftVotes, setLeftVotes] = useState(0);
 
     const { t } = useTranslation();
 
@@ -25,7 +26,20 @@ export default function CourseElement() {
         .then((course: Course) => setCourse(course));
     }, [params.courseId]);
 
-    useEffect(() => fetchCourse(), [fetchCourse]);
+    const fetchLeftVotes = useCallback(() => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses/${params.courseId}/votes`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        .then(response => response.text())
+        .then((votesAsString: string) => setLeftVotes(parseInt(votesAsString)));
+    }, [params.courseId]);
+
+    useEffect(() => {
+        fetchCourse();
+        fetchLeftVotes();
+    }, [fetchCourse, fetchLeftVotes]);
 
     const addTopic = () => {
         fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'create-topic')?.href}`, {
