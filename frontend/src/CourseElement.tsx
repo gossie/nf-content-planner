@@ -82,7 +82,7 @@ export default function CourseElement() {
                             <Link to="/courses">{t('back')}</Link>
                             <Button label={t('buttonDeleteCourse')} onClick={deleteCourse} />
                             */ }
-                            <span>{t('votes', {"votes": 1})}</span>
+                            <span>{t('votes', {"votes": leftVotes})}</span>
                         </div>
                         <div className="border-r-2" />
                         <div>
