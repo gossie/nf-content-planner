@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import Button from "./common-elements/Button";
+import Input from "./common-elements/Input";
 import { Course } from "./model";
 import TopicElement from "./TopicElement";
 
@@ -15,9 +16,13 @@ export default function CourseElement() {
     const { t } = useTranslation();
 
     const fetchCourse = useCallback(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses/${params.courseId}`)
-            .then(response => response.json())
-            .then((course: Course) => setCourse(course));
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses/${params.courseId}`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        .then(response => response.json())
+        .then((course: Course) => setCourse(course));
     }, [params.courseId]);
 
     useEffect(() => fetchCourse(), [fetchCourse]);
@@ -26,7 +31,8 @@ export default function CourseElement() {
         fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'create-topic')?.href}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             },
             body: JSON.stringify({
                 name: newTopicName,
@@ -68,7 +74,7 @@ export default function CourseElement() {
                         <div>
                             <h2 className="text-xl pb-5 font-bold">{t('headlineTopics')}</h2>
                             <div className="mb-3">
-                                <input type="text" className="border-b-2" placeholder="Topic" value={newTopicName} onChange={ev => setNewTopicName(ev.target.value)} />
+                                <Input placeholder="Topic" value={newTopicName} onChange={setNewTopicName} />
                                 <textarea className="border-b-2" placeholder="Beschreibung" value={newTopicDescription} onChange={ev => setNewTopicDescription(ev.target.value)}></textarea>
                                 <Button label="Speichern" onClick={addTopic} />
                             </div>

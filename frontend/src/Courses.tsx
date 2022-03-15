@@ -11,9 +11,13 @@ export default function Courses() {
     const { t } = useTranslation();
 
     const fetchAll = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses`)
-            .then(response => response.json())
-            .then((courses: Array<Course>) => setCourses(courses));
+        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        .then(response => response.json())
+        .then((courses: Array<Course>) => setCourses(courses));
     }
 
     useEffect(() => {
@@ -24,7 +28,8 @@ export default function Courses() {
         fetch(`${process.env.REACT_APP_BASE_URL}/api/courses`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             },
             body: JSON.stringify({
                 name: courseName,

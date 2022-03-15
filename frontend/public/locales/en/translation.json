@@ -1,4 +1,12 @@
 {
+    "headlineRegistration": "Register",
+    "email": "E-Mail",
+    "password": "Password",
+    "passwordAgain": "Repeat password",
+    "buttonRegistration": "Register",
+    "errorPasswordMismatch": "The passwords do not match",
+    "errorEmailExists": "The e-mail address already exists",
+    "headlineLogin": "Login",
     "placeholderCourseName": "Course name",
     "buttonCreateCourse": "Create course",
     "buttonDeleteCourse": "Delete course",

@@ -1,4 +1,4 @@
-package com.github.gossie.nf.planner;
+package com.github.gossie.nf.planner.course;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

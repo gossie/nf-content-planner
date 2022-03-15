@@ -1,4 +1,4 @@
-package com.github.gossie.nf.planner;
+package com.github.gossie.nf.planner.course;
 
 import java.util.List;
 import java.util.Objects;

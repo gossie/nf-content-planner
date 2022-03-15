@@ -1,4 +1,6 @@
 package com.github.gossie.nf.planner.user;
 
-public record User(String id, String githubUsername) {
+import java.util.List;
+
+public record User(String id, String email, String password, String githubUsername, List<String> authorities) {
 }

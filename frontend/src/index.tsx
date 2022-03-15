@@ -8,16 +8,19 @@ import reportWebVitals from './reportWebVitals';
 
 import "./i18n";
 import "./index.css";
+import Registration from './Registration';
+import Login from './Login';
 
 ReactDOM.render(
     <React.StrictMode>
         <Suspense fallback="Loading...">
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<App />}>
-                        <Route path="courses" element={<Courses />} />
-                        <Route path="courses/:courseId" element={<CourseElement />} />
-                    </Route>
+                    <Route path="/" element={<App />} />
+                    <Route path="/registration" element={<Registration />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/courses" element={<Courses />} />
+                    <Route path="/courses/:courseId" element={<CourseElement />} />
                 </Routes>
             </BrowserRouter>
         </Suspense>

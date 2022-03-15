@@ -1,4 +1,12 @@
 {
+    "headlineRegistration": "Registrierung",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "passwordAgain": "Passwort wiederholen",
+    "buttonRegistration": "Registrieren",
+    "errorPasswordMismatch": "Die Passörter stimmen nicht überein",
+    "errorEmailExists": "Die E-Mail-Adresse ist schon vergeben",
+    "headlineLogin": "Login",
     "placeholderCourseName": "Kursname",
     "buttonCreateCourse": "Kurs erstellen",
     "buttonDeleteCourse": "Kurs löschen",

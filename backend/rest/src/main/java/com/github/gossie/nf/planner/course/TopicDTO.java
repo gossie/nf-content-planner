@@ -1,4 +1,4 @@
-package com.github.gossie.nf.planner;
+package com.github.gossie.nf.planner.course;
 
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.hateoas.Link;
