@@ -10,16 +10,18 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/courses/{courseId}/topics")
-@CrossOrigin
+@CrossOrigin("http://localhost:3000")
 public class TopicController {
 
     private final UserService userService;
     private final CourseService courseService;
+    private final CourseDTOMapper courseMapper;
     private final TopicDTOMapper topicMapper;
 
-    public TopicController(UserService userService, CourseService courseService, TopicDTOMapper topicMapper) {
+    public TopicController(UserService userService, CourseService courseService, CourseDTOMapper courseMapper, TopicDTOMapper topicMapper) {
         this.userService = userService;
         this.courseService = courseService;
+        this.courseMapper = courseMapper;
         this.topicMapper = topicMapper;
     }
 
@@ -34,9 +36,10 @@ public class TopicController {
     }
 
     @PatchMapping("/{topicId}")
-    public ResponseEntity<Course> vote(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
+    public ResponseEntity<CourseDTO> vote(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
         return ResponseEntity.of(userService.findByEmail(principal.getName())
-                .flatMap(user -> courseService.vote(courseId, topicId, user)));
+                .flatMap(user -> courseService.vote(courseId, topicId, user))
+                .map(courseMapper::map));
     }
 
     @DeleteMapping("/{topicId}")

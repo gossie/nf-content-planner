@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/courses")
-@CrossOrigin
+@CrossOrigin("http://localhost:3000")
 public class CourseController {
 
     private final CourseService courseService;

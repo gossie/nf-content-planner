@@ -68,6 +68,7 @@ class DefaultCourseService implements CourseService {
 
     private boolean checkIfVotesAreLeft(Course course, User user) {
         return course.topics().stream()
+                .filter(t -> t.votes() != null)
                 .flatMap(t -> t.votes().stream())
                 .filter(id -> Objects.equals(id, user.id()))
                 .count() < 3;
