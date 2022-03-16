@@ -71,6 +71,7 @@ class DefaultCourseService implements CourseService {
     public long determineNumberOfLeftVotes(String id, User user) {
         return 3 - courseRepository.get(id).stream()
                 .flatMap(course -> course.topics().stream())
+                .filter(t -> t.votes() != null)
                 .flatMap(topic -> topic.votes().stream())
                 .filter(userId -> Objects.equals(userId, user.id()))
                 .count();

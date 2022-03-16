@@ -17,7 +17,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @EnableWebSecurity
@@ -38,7 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().and().authorizeRequests()
+        http
+                .csrf().disable()
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
+                .authorizeRequests()
                 .antMatchers("/api/users", "/api/users/login").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/**").permitAll()
@@ -49,12 +52,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login();
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    private CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern("http://localhost:3000");
         configuration.setAllowedMethods(List.of(CorsConfiguration.ALL));
-        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.setAllowedHeaders(List.of(CorsConfiguration.ALL));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

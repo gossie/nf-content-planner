@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import Input from "./common-elements/Input";
+import { fetchAllCourses, createCourse } from "./http-client";
 import { Course } from "./model";
 
 export default function Courses() {
@@ -9,47 +11,44 @@ export default function Courses() {
     const [courses, setCourses] = useState([] as Array<Course>)
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const fetchAll = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-            }
-        })
-        .then(response => response.json())
-        .then((courses: Array<Course>) => setCourses(courses));
+        fetchAllCourses(navigate)
+            .then((courses: Array<Course>) => setCourses(courses));
     }
 
     useEffect(() => {
         fetchAll();
     }, []);
 
-    const createCourse = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-            },
-            body: JSON.stringify({
-                name: courseName,
-                topics: []
-            })
-        })
-        .then(() => {
-            setCourseName('');
-            fetchAll();
-        });
+    const createNewCourse = () => {
+        createCourse(courseName, navigate)
+            .then(() => {
+                setCourseName('');
+                fetchAll();
+            });
+    }
+
+    const logout = () => {
+        localStorage.removeItem('jwt');
+        navigate('/login');
     }
 
     return (
         <div>
-            <input type="text" placeholder={t('placeholderCourseName')} value={courseName} onKeyUp={ev => { if (ev.key === 'Enter') { createCourse() } }} onChange={ev => setCourseName(ev.target.value)} /><button onClick={createCourse}>{t('buttonCreateCourse')}</button>
-            { courses.map(c =>
-                <div key={c.id}>
-                    <Link to={c.id}>{c.name}</Link>
-                </div>)
-            }
+            <Input placeholder={t('placeholderCourseName')} value={courseName} onChange={setCourseName} /><button onClick={createNewCourse}>{t('buttonCreateCourse')}</button>
+            <div>
+                { courses.map(c =>
+                    <div key={c.id}>
+                        <Link to={c.id}>{c.name}</Link>
+                    </div>)
+                }
+            </div>
+            <div onClick={logout}>Logout</div>
+            <div>
+                <Outlet />
+            </div>
         </div>
     )
 }

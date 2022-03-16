@@ -19,8 +19,10 @@ ReactDOM.render(
                     <Route path="/" element={<App />} />
                     <Route path="/registration" element={<Registration />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/courses" element={<Courses />} />
-                    <Route path="/courses/:courseId" element={<CourseElement />} />
+        
+                    <Route path="/courses" element={<Courses />}>
+                        <Route path="/courses/:courseId" element={<CourseElement />} />
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </Suspense>

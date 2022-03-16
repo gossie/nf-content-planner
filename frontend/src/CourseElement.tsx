@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "./common-elements/Button";
 import Input from "./common-elements/Input";
+import { addTopicToCourse, fetchCourse, fetchVotes } from "./http-client";
 import { Course } from "./model";
 import TopicElement from "./TopicElement";
 
@@ -15,48 +16,29 @@ export default function CourseElement() {
     const [leftVotes, setLeftVotes] = useState(0);
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
-    const fetchCourse = useCallback(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses/${params.courseId}`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-            }
-        })
-        .then(response => response.json())
-        .then((course: Course) => setCourse(course));
+    const fetchOneCourse = useCallback(() => {
+        fetchCourse(params.courseId!, navigate)
+            .then((course: Course) => setCourse(course));
     }, [params.courseId]);
 
     const fetchLeftVotes = useCallback(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/courses/${params.courseId}/votes`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-            }
-        })
-        .then(response => response.text())
-        .then((votesAsString: string) => setLeftVotes(parseInt(votesAsString)));
+        fetchVotes(params.courseId!, navigate)
+            .then((votesAsString: string | void) => setLeftVotes(parseInt(votesAsString!)));
     }, [params.courseId]);
 
     useEffect(() => {
-        fetchCourse();
+        fetchOneCourse();
         fetchLeftVotes();
-    }, [fetchCourse, fetchLeftVotes]);
+    }, [fetchOneCourse, fetchLeftVotes]);
 
     const addTopic = () => {
-        fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'create-topic')?.href}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-            },
-            body: JSON.stringify({
-                name: newTopicName,
-                description: newTopicDescription
-            })
-        })
+        addTopicToCourse(course, newTopicName, newTopicDescription, navigate)
         .then(() => {
             setNewTopicName('');
             setNewTopicDescription('');
-            fetchCourse();
+            fetchOneCourse();
         });
     };
 
@@ -93,7 +75,7 @@ export default function CourseElement() {
                                 <Button label="Speichern" onClick={addTopic} />
                             </div>
                             <ul>
-                                {course.topics.map(t => <li key={t.id}><TopicElement topic={t} onTopicDeletion={() => {fetchCourse(); fetchLeftVotes();}} onTopicVote={(course: Course) => {setCourse(course); fetchLeftVotes();}} /></li>)}
+                                {course.topics.map(t => <li key={t.id}><TopicElement topic={t} onTopicDeletion={() => {fetchOneCourse(); fetchLeftVotes();}} onTopicVote={(course: Course) => {setCourse(course); fetchLeftVotes();}} /></li>)}
                             </ul>
                         </div>
                     </div>

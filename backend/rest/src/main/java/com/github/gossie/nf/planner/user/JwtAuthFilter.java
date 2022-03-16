@@ -1,6 +1,6 @@
 package com.github.gossie.nf.planner.user;
 
-import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -35,12 +35,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             try {
                 Claims claims = jwtService.extractClaims(token);
                 setSecurityContext(claims.getSubject());
-            } catch (Exception e) {
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "invalid token");
+                filterChain.doFilter(request, response);
+            } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
+                e.printStackTrace();
+                response.setStatus(403);
+                //throw new ResponseStatusException(HttpStatus.FORBIDDEN, "invalid token");
             }
+        } else {
+            filterChain.doFilter(request, response);
         }
-
-        filterChain.doFilter(request, response);
     }
 
     private String getAuthToken(HttpServletRequest request) {
