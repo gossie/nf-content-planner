@@ -25,7 +25,7 @@ class CourseDTOMapper {
         return new CourseDTO(
                 course.id(),
                 course.name(),
-                new ArrayList<>(course.topics().stream().map(t -> topicMapper.map(t, course.id())).sorted(Comparator.comparingInt(TopicDTO::votes)).toList())
+                new ArrayList<>(course.topics().stream().map(t -> topicMapper.map(t, course.id())).sorted(Comparator.comparingInt(TopicDTO::votes).reversed()).toList())
         );
     }
 }
