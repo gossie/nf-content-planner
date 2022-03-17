@@ -4,6 +4,7 @@
     "password": "Passwort",
     "passwordAgain": "Passwort wiederholen",
     "buttonRegistration": "Registrieren",
+    "buttonLogin": "Login",
     "errorPasswordMismatch": "Die Passörter stimmen nicht überein",
     "errorEmailExists": "Die E-Mail-Adresse ist schon vergeben",
     "headlineLogin": "Login",

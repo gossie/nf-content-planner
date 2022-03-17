@@ -4,6 +4,7 @@
     "password": "Password",
     "passwordAgain": "Repeat password",
     "buttonRegistration": "Register",
+    "buttonLogin": "Login",
     "errorPasswordMismatch": "The passwords do not match",
     "errorEmailExists": "The e-mail address already exists",
     "headlineLogin": "Login",
