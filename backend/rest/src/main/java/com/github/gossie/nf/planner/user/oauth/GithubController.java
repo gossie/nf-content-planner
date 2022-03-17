@@ -45,7 +45,7 @@ public class GithubController {
     }
 
     @GetMapping
-    public void callbackUrl(@RequestParam String code, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void callbackUrl(@RequestParam String code, HttpServletResponse response) throws ServletException, IOException {
         ResponseEntity<GitHubResponse> accessTokenResponse = restTemplate.postForEntity(ACCESS_TOKEN_URL + "?client_id=" + githubClientId + "&client_secret=" + githubAuthSecret + "&code=" + code, null, GitHubResponse.class);
 
         ResponseEntity<GitHubUser> userResponse = restTemplate.exchange(
@@ -58,11 +58,7 @@ public class GithubController {
         userService.findByGithubId(userResponse.getBody().id())
                 .orElseGet(() -> userService.createUser(new User(null, userResponse.getBody().email(), null, userResponse.getBody().id(), List.of("USER"))));
 
-        response.addCookie(new Cookie("jwt", jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id())));
-
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/courses");
-        dispatcher.forward(request, response);
-        //response.sendRedirect("/courses");
+        response.sendRedirect("/courses?jwt=" + jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
     }
 
     HttpHeaders createHeaders(String token){
