@@ -44,7 +44,7 @@ export default function Login() {
                 <Button label={t('buttonLogin')} onClick={login} />
             </div>
             <div>
-                <a href="/oauth2/authorization/github">GitHub</a>
+                <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">GitHub</a>
             </div>
         </div>
     )
