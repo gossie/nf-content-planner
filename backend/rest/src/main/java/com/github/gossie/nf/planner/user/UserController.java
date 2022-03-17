@@ -50,9 +50,9 @@ public class UserController {
     public String login(@RequestBody LoginData loginData, HttpServletResponse response) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginData.email(), loginData.password()));
-            String token = jwtUtils.createToken(Collections.emptyMap(), loginData.email());
+            String token = jwtUtils.createToken(new HashMap<>(), loginData.email());
 
-            response.addCookie(new Cookie("jwt", jwtUtils.createToken(new HashMap<>(), loginData.email())));
+            response.addCookie(new Cookie("jwt", token));
 
             return token;
         } catch(Exception e) {
