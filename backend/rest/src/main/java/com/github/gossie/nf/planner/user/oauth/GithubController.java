@@ -56,7 +56,7 @@ public class GithubController {
         );
 
         userService.findByGithubId(userResponse.getBody().id())
-                .orElseGet(() -> userService.createUser(new User(null, userResponse.getBody().email(), null, userResponse.getBody().id(), List.of())));
+                .orElseGet(() -> userService.createUser(new User(null, userResponse.getBody().email(), null, userResponse.getBody().id(), List.of("USER"))));
 
         response.addCookie(new Cookie("jwt", jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id())));
 
