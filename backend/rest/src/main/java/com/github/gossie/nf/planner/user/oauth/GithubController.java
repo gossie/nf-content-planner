@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +42,7 @@ public class GithubController {
     }
 
     @GetMapping
-    public String callbackUrl(@RequestParam String code, HttpServletResponse response) {
+    public void callbackUrl(@RequestParam String code, HttpServletResponse response) throws IOException {
         ResponseEntity<GitHubResponse> accessTokenResponse = restTemplate.postForEntity(ACCESS_TOKEN_URL + "?client_id=" + githubClientId + "&client_secret=" + githubAuthSecret + "&code=" + code, null, GitHubResponse.class);
 
         ResponseEntity<GitHubUser> userResponse = restTemplate.exchange(
@@ -56,7 +57,7 @@ public class GithubController {
 
         response.addCookie(new Cookie("jwt", jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id())));
 
-        return "forward:/index.html/courses";
+        response.sendRedirect("/index.html/courses");
     }
 
     HttpHeaders createHeaders(String token){
