@@ -16,6 +16,6 @@ public class ReactRoutingForwarding {
         if (jwt == null || "".equals(jwt)) {
             response.addCookie(new Cookie("jwt", jwt));
         }
-        return "/courses";
+        return "forward:/";
     }
 }
