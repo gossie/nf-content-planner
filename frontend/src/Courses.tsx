@@ -18,9 +18,9 @@ export default function Courses() {
         const jwt = query.get('jwt');
         if (jwt) {
             localStorage.setItem('jwt', jwt);
-            window.location.search = '';
+            navigate('/courses');
         }
-    }, [])
+    }, [navigate])
 
     const fetchAll = useCallback(() => {
         fetchAllCourses(navigate)
