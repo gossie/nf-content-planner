@@ -39,11 +39,14 @@ public class CourseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> createCourse(@RequestBody CourseDTO course) {
-        var createdCourse = courseService.createCourse(courseMapper.map(course));
-        return ResponseEntity
-                .created(URI.create("/api/courses/" + createdCourse.id()))
-                .build();
+    public ResponseEntity<Void> createCourse(@RequestBody CourseDTO course, Principal principal) {
+        return userService.findByEmail(principal.getName())
+                .or(() -> userService.findByGithubId(principal.getName()))
+                .map(user -> new CourseDTO(course.id(), course.name(), course.topics(), user.id()))
+                .map(courseMapper::map)
+                .map(courseService::createCourse)
+                .map(createdCourse -> ResponseEntity.created(URI.create("/api/courses/" + createdCourse.id())).<Void>build())
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     @DeleteMapping("/{id}")
