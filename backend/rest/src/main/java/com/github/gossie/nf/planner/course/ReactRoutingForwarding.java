@@ -12,10 +12,9 @@ import java.util.Objects;
 public class ReactRoutingForwarding {
 
     @GetMapping(value = "/**/{[path:[^\\.]*}")
-    public String forwardToRouteUrl(@RequestParam(required = false) String jwt, HttpServletResponse response) {
+    public void forwardToRouteUrl(@RequestParam(required = false) String jwt, HttpServletResponse response) {
         if (jwt == null || "".equals(jwt)) {
             response.addCookie(new Cookie("jwt", jwt));
         }
-        return "forward:/";
     }
 }
