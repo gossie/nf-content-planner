@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -53,7 +54,7 @@ public class GithubController {
         userService.findByGithubId(userResponse.getBody().id())
                 .orElseGet(() -> userService.createUser(new User(null, userResponse.getBody().email(), null, userResponse.getBody().id(), List.of())));
 
-        response.addCookie(new Cookie("jwt", jwtUtils.createToken(Collections.emptyMap(), userResponse.getBody().id())));
+        response.addCookie(new Cookie("jwt", jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id())));
 
         return "forward:/index.html/courses";
     }

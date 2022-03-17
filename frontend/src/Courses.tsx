@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Input from "./common-elements/Input";
@@ -13,14 +13,14 @@ export default function Courses() {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const fetchAll = () => {
+    const fetchAll = useCallback(() => {
         fetchAllCourses(navigate)
             .then((courses: Array<Course>) => setCourses(courses));
-    }
+    }, [navigate]);
 
     useEffect(() => {
         fetchAll();
-    }, []);
+    }, [fetchAll]);
 
     const createNewCourse = () => {
         createCourse(courseName, navigate)
