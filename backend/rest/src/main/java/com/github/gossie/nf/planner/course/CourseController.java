@@ -54,6 +54,7 @@ public class CourseController {
     @GetMapping("/{id}/votes")
     public ResponseEntity<Long> getNumberOfLeftVotes(@PathVariable String id, Principal principal) {
         return ResponseEntity.of(userService.findByEmail(principal.getName())
+                .or(() -> userService.findByGithubId(principal.getName()))
                 .map(user -> courseService.determineNumberOfLeftVotes(id, user)));
     }
 
