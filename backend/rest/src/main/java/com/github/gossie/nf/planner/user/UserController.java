@@ -47,14 +47,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginData loginData, HttpServletResponse response) {
+    public String login(@RequestBody LoginData loginData) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginData.email(), loginData.password()));
-            String token = jwtUtils.createToken(new HashMap<>(), loginData.email());
-
-            //response.addCookie(new Cookie("jwt", token));
-
-            return token;
+            return jwtUtils.createToken(new HashMap<>(), loginData.email());
         } catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials");
         }
