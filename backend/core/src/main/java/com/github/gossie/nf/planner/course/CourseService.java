@@ -16,7 +16,7 @@ public interface CourseService {
 
     void deleteTopic(String courseId, String topicId);
 
-    Optional<Course> deleteCourse(String id);
+    Optional<Course> deleteCourse(String id, String userId);
 
     Optional<Course> vote(String courseId, String topicId, User user);
 

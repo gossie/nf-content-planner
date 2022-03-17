@@ -1,5 +1,6 @@
 package com.github.gossie.nf.planner.course;
 
+import com.github.gossie.nf.planner.user.User;
 import com.github.gossie.nf.planner.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,8 +47,11 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CourseDTO> deleteCourse(@PathVariable String id) {
-        return ResponseEntity.of(courseService.deleteCourse(id)
+    public ResponseEntity<CourseDTO> deleteCourse(@PathVariable String id, Principal principal) {
+        return ResponseEntity.of(userService.findByEmail(principal.getName())
+                .or(() -> userService.findByGithubId(principal.getName()))
+                .map(User::id)
+                .flatMap(userId -> courseService.deleteCourse(id, userId))
                 .map(courseMapper::map));
     }
 

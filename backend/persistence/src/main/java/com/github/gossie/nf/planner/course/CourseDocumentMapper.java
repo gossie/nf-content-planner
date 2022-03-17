@@ -20,10 +20,10 @@ class CourseDocumentMapper {
 
     CourseDocument map(Course course) {
         // TODO das null am ende
-        return new CourseDocument(course.id(), course.name(), new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()), null);
+        return new CourseDocument(course.id(), course.name(), new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()), course.userId());
     }
 
     Course map(CourseDocument course) {
-        return new Course(course.id(), course.name(), new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()));
+        return new Course(course.id(), course.name(), new ArrayList<>(course.topics().stream().map(topicMapper::map).toList()), course.userId());
     }
 }

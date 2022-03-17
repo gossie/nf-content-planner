@@ -55,8 +55,10 @@ class DefaultCourseService implements CourseService {
     }
 
     @Override
-    public Optional<Course> deleteCourse(String id) {
-        return courseRepository.deleteCourse(id);
+    public Optional<Course> deleteCourse(String id, String userId) {
+        return courseRepository.get(id)
+                .filter(course -> Objects.equals(course.userId(), userId))
+                .flatMap(course -> courseRepository.deleteCourse(course.id()));
     }
 
     @Override
