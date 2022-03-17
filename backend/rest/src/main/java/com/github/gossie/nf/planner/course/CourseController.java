@@ -40,8 +40,7 @@ public class CourseController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> createCourse(@RequestBody CourseDTO course, Principal principal) {
-        return userService.findByEmail(principal.getName())
-                .or(() -> userService.findByGithubId(principal.getName()))
+        return userService.findUser(principal.getName())
                 .map(user -> new CourseDTO(course.id(), course.name(), course.topics(), user.id()))
                 .map(courseMapper::map)
                 .map(courseService::createCourse)
@@ -51,17 +50,17 @@ public class CourseController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CourseDTO> deleteCourse(@PathVariable String id, Principal principal) {
-        return ResponseEntity.of(userService.findByEmail(principal.getName())
-                .or(() -> userService.findByGithubId(principal.getName()))
+        return userService.findUser(principal.getName())
                 .map(User::id)
                 .flatMap(userId -> courseService.deleteCourse(id, userId))
-                .map(courseMapper::map));
+                .map(courseMapper::map)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.FORBIDDEN).build());
     }
 
     @GetMapping("/{id}/votes")
     public ResponseEntity<Long> getNumberOfLeftVotes(@PathVariable String id, Principal principal) {
-        return ResponseEntity.of(userService.findByEmail(principal.getName())
-                .or(() -> userService.findByGithubId(principal.getName()))
+        return ResponseEntity.of(userService.findUser(principal.getName())
                 .map(user -> courseService.determineNumberOfLeftVotes(id, user)));
     }
 

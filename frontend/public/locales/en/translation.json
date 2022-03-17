@@ -14,5 +14,6 @@
     "headlineTopics": "Topics",
     "back": "Back",
     "votes": "You've got {{votes}} votes left.",
-    "topicVotes": "{{votes}} votes"
+    "topicVotes": "{{votes}} votes",
+    "errorActionForbidden": "You are not allowed to perform that action"
 }

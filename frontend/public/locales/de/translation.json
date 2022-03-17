@@ -14,5 +14,6 @@
     "headlineTopics": "Themen",
     "back": "Zurück",
     "votes": "Du hast noch {{votes}} Stimmen.",
-    "topicVotes": "{{votes}} Stimmen"
+    "topicVotes": "{{votes}} Stimmen",
+    "errorActionForbidden": "Du darfst diese Aktion nicht durchführen"
 }

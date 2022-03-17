@@ -33,6 +33,12 @@ class DefaultUserService implements UserService, UserDetailsService {
     }
 
     @Override
+    public Optional<User> findUser(String which) {
+        return findByEmail(which)
+                .or(() -> findByGithubId(which));
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
                 .map(user -> new org.springframework.security.core.userdetails.User(user.email(), user.password(), user.authorities().stream().map(SimpleGrantedAuthority::new).toList()))

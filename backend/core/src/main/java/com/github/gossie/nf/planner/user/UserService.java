@@ -9,4 +9,6 @@ public interface UserService {
     Optional<User> findByEmail(String email);
 
     Optional<User> findByGithubId(String id);
+
+    Optional<User> findUser(String which);
 }

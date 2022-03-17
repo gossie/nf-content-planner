@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "./common-elements/Button";
 import Input from "./common-elements/Input";
-import { addTopicToCourse, fetchCourse, fetchVotes } from "./http-client";
+import { addTopicToCourse, deleteCourse, fetchCourse, fetchVotes } from "./http-client";
 import { Course } from "./model";
 import TopicElement from "./TopicElement";
 
@@ -14,6 +14,7 @@ export default function CourseElement() {
     const [newTopicName, setNewTopicName] = useState('');
     const [newTopicDescription, setNewTopicDescription] = useState('');
     const [leftVotes, setLeftVotes] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -42,16 +43,20 @@ export default function CourseElement() {
         });
     };
 
-    // const deleteCourse = () => {
-    //     fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'self')?.href}`, {
-    //         method: 'DELETE'
-    //     })
-    //     .then(() => {
-    //         setNewTopicName('');
-    //         setNewTopicDescription('');
-    //         navigate('/courses');
-    //     })
-    // };
+    const deleteExistingCourse = () => {
+        deleteCourse(course, navigate)
+            .then(() => {
+                setNewTopicName('');
+                setNewTopicDescription('');
+                navigate('/courses');
+            })
+            .catch(e => setErrorMessage(e.message));
+    };
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => setErrorMessage(''), 15000);
+        return () => clearTimeout(timeoutId);
+    }, [errorMessage]);
 
     return (
         <div className="container mx-auto">
@@ -60,11 +65,16 @@ export default function CourseElement() {
                     <h1 className="text-2xl text-center pb-10 font-bold">{course.name}</h1>
                     <div className="flex flex-row justify-around">
                         <div>
-                            { /*
-                            <Link to="/courses">{t('back')}</Link>
-                            <Button label={t('buttonDeleteCourse')} onClick={deleteCourse} />
-                            */ }
-                            <span>{t('votes', {"votes": leftVotes})}</span>
+                            <div>
+                                <Link to="/courses">{t('back')}</Link>
+                            </div>
+                            <div>
+                                <Button label={t('buttonDeleteCourse')} onClick={deleteExistingCourse} />
+                                { errorMessage && <div className="border-2 border-red-500 rounded-md text-red-500 my-2 p-2">{t(errorMessage)}</div> }
+                            </div>
+                            <div>
+                                <span>{t('votes', {"votes": leftVotes})}</span>
+                            </div>
                         </div>
                         <div className="border-r-2" />
                         <div>

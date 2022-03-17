@@ -51,6 +51,22 @@ export function createCourse(courseName: string, navigate: NavigateFunction) {
     .catch(() => navigate('/login'))
 }
 
+export function deleteCourse(course: Course, navigate: NavigateFunction) {
+    return fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'self')?.href}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        }
+    })
+    .then(response => {
+        if (response.status === 401) {
+            navigate('/login')
+        } else if (response.status === 403) {
+            throw new Error('errorActionForbidden');
+        }
+    })
+}
+
 export function addTopicToCourse(course: Course, topicName: string, topicDescription: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'create-topic')?.href}`, {
         method: 'POST',
