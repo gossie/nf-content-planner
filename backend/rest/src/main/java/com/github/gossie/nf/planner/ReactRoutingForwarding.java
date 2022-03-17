@@ -1,4 +1,4 @@
-package com.github.gossie.nf.planner.course;
+package com.github.gossie.nf.planner;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +12,7 @@ import java.util.Objects;
 public class ReactRoutingForwarding {
 
     @GetMapping(value = "/**/{[path:[^\\.]*}")
-    public void forwardToRouteUrl(@RequestParam(required = false) String jwt, HttpServletResponse response) {
-        if (jwt == null || "".equals(jwt)) {
-            response.addCookie(new Cookie("jwt", jwt));
-        }
+    public String forwardToRouteUrl() {
+        return "forward:/";
     }
 }

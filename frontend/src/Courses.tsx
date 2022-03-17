@@ -13,6 +13,15 @@ export default function Courses() {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const query = new URLSearchParams(window.location.search);
+        const jwt = query.get('jwt');
+        if (jwt) {
+            localStorage.setItem('jwt', jwt);
+            window.location.search = '';
+        }
+    }, [])
+
     const fetchAll = useCallback(() => {
         fetchAllCourses(navigate)
             .then((courses: Array<Course>) => setCourses(courses));

@@ -52,7 +52,7 @@ public class UserController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginData.email(), loginData.password()));
             String token = jwtUtils.createToken(new HashMap<>(), loginData.email());
 
-            response.addCookie(new Cookie("jwt", token));
+            //response.addCookie(new Cookie("jwt", token));
 
             return token;
         } catch(Exception e) {

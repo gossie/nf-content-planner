@@ -17,7 +17,7 @@ public class CourseIT {
     private TestRestTemplate restTemplate;
 
     @Test
-    void contextLoads() {
+    void integrationTest() {
         ResponseEntity<UserDTO> createUserResponse = restTemplate.postForEntity("/api/users", new UserDTO("test@email.de", "123456a", "123456a"), UserDTO.class);
         assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
