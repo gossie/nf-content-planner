@@ -29,4 +29,10 @@ class DefaultUserRepository implements UserRepository {
                 .map(userMapper::map);
     }
 
+    @Override
+    public Optional<User> findByGithubId(String githubId) {
+        return userDocumentRepository.findByGithubId(githubId)
+                .map(userMapper::map);
+    }
+
 }

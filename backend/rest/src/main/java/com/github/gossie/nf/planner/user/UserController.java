@@ -8,7 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -44,10 +47,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginData loginData) {
+    public String login(@RequestBody LoginData loginData, HttpServletResponse response) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginData.email(), loginData.password()));
-            return jwtUtils.createToken(new HashMap<>(), loginData.email());
+            String token = jwtUtils.createToken(Collections.emptyMap(), loginData.email());
+
+            response.addCookie(new Cookie("jwt", jwtUtils.createToken(Collections.emptyMap(), loginData.email())));
+
+            return token;
         } catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials");
         }

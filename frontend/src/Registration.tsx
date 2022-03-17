@@ -15,6 +15,7 @@ export default function Registration() {
     const navigate = useNavigate();
 
     const register = () => {
+
         fetch(`${process.env.REACT_APP_BASE_URL}/api/users`, {
             method: 'POST',
             headers: {
