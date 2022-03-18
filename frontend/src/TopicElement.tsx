@@ -26,7 +26,7 @@ export default function TopicElement(props: TopicElementProps) {
 
     const removeVote = () => {
         removeVoteForTopic(props.topic, navigate)
-            .then(() => (course: Course) => props.onTopicVote(course));
+            .then((course: Course) => props.onTopicVote(course));
     }
 
     return (
