@@ -1,9 +1,13 @@
 {
     "headlineRegistration": "Register",
     "email": "E-Mail",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
     "password": "Password",
     "passwordAgain": "Repeat password",
     "buttonRegistration": "Register",
+    "mandatoryErrorMessage": "A mandatory field was not set",
+    "passwordErrorMessage": "The passwords do not match",
     "buttonLogin": "Login",
     "errorPasswordMismatch": "The passwords do not match",
     "errorEmailExists": "The e-mail address already exists",

@@ -20,9 +20,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/github")
@@ -56,9 +58,25 @@ public class GithubController {
         );
 
         userService.findByGithubId(userResponse.getBody().id())
-                .orElseGet(() -> userService.createUser(new User(null, userResponse.getBody().email(), null, userResponse.getBody().id(), List.of("USER"))));
+                .orElseGet(() -> userService.createUser(new User(null, userResponse.getBody().email(), getFirstname(userResponse.getBody().name()), getLastname(userResponse.getBody().name()), null, userResponse.getBody().id(), List.of("USER"))));
 
         response.sendRedirect("/courses?jwt=" + jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
+    }
+
+    private String getFirstname(String name) {
+        String[] nameComponents = name.split(" ");
+        if (nameComponents.length > 1) {
+            return Arrays.stream(nameComponents).limit(nameComponents.length-1).collect(Collectors.joining(" "));
+        }
+        return name;
+    }
+
+    private String getLastname(String name) {
+        String[] nameComponents = name.split(" ");
+        if (nameComponents.length > 1) {
+            return nameComponents[nameComponents.length-1];
+        }
+        return name;
     }
 
     HttpHeaders createHeaders(String token){

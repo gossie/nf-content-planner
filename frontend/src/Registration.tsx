@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom";
 import Button from "./common-elements/Button";
+import ErrorMessage from "./common-elements/ErrorMessage";
 import Input from "./common-elements/Input";
 
 export default function Registration() {
 
     const [email, setEmail] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
     const [password, setPassword] = useState('');
     const [passwordAgain, setPasswordAgain] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -14,27 +17,39 @@ export default function Registration() {
     const {t} = useTranslation();
     const navigate = useNavigate();
 
-    const register = () => {
+    useEffect(() => {
+        const timeoutId = setTimeout(() => setErrorMessage(''), 15000);
+        return () => clearTimeout(timeoutId);
+    }, [errorMessage]);
 
-        fetch(`${process.env.REACT_APP_BASE_URL}/api/users`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-                passwordAgain: passwordAgain
+    const register = () => {
+        if (!email || !password || !passwordAgain || !lastname || !firstname) {
+            setErrorMessage('mandatoryErrorMessage');
+        } else if (password !== passwordAgain) {
+            setErrorMessage('passwordErrorMessage');
+        } else {
+            fetch(`${process.env.REACT_APP_BASE_URL}/api/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    firstname: firstname,
+                    lastname: lastname,
+                    password: password,
+                    passwordAgain: passwordAgain
+                })
             })
-        })
-        .then(response => {
-            if (response.status === 201) {
-                return response.json();
-            }
-            throw new Error(response.status === 400 ? 'errorPasswordMismatch' : response.status === 409 ? 'errorEmailExists' : '')
-        })
-        .then(() => navigate('/login'))
-        .catch(e => setErrorMessage(e.message));
+            .then(response => {
+                if (response.status === 201) {
+                    return response.json();
+                }
+                throw new Error(response.status === 400 ? 'errorPasswordMismatch' : response.status === 409 ? 'errorEmailExists' : '')
+            })
+            .then(() => navigate('/login'))
+            .catch(e => setErrorMessage(e.message));
+        }
     };
 
     return (
@@ -43,12 +58,26 @@ export default function Registration() {
                 <h2 className="text-xl pb-5 font-bold">{t('headlineRegistration')}</h2>
                 <div>
                     <div>
-                        <Input placeholder={t('email')} value={email} onChange={setEmail} />
-                        <Input placeholder={t('password')} value={password} onChange={setPassword} type="password" />
-                        <Input placeholder={t('passwordAgain')} value={passwordAgain} onChange={setPasswordAgain} type="password" />
-                        <Button label={t('buttonRegistration')} onClick={register} />
+                        <div>
+                            <Input placeholder={t('email')} value={email} onChange={setEmail} />
+                        </div>
+                        <div>
+                            <Input placeholder={t('firstname')} value={firstname} onChange={setFirstname} />
+                        </div>
+                        <div>
+                            <Input placeholder={t('lastname')} value={lastname} onChange={setLastname} />
+                        </div>
+                        <div>
+                            <Input placeholder={t('password')} value={password} onChange={setPassword} type="password" />
+                        </div>
+                        <div>
+                            <Input placeholder={t('passwordAgain')} value={passwordAgain} onChange={setPasswordAgain} type="password" />
+                        </div>
+                        <div>
+                            <Button label={t('buttonRegistration')} onClick={register} />
+                        </div>
                     </div>
-                    { errorMessage && <div>{t(errorMessage)}</div> }
+                    { errorMessage && <ErrorMessage message={t(errorMessage)} /> }
                 </div>
                 <div>
                     <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">GitHub</a>

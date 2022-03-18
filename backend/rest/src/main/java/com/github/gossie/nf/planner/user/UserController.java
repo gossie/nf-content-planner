@@ -36,8 +36,8 @@ public class UserController {
         }
 
         try {
-            User createdUser = userService.createUser(new User(null, user.email(), passwordEncoder.encode(user.password()), null, List.of("USER")));
-            return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(createdUser.email(), "", ""));
+            User createdUser = userService.createUser(new User(null, user.email(), user.firstname(), user.lastname(), passwordEncoder.encode(user.password()), null, List.of("USER")));
+            return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(createdUser.email(), createdUser.firstname(), createdUser.lastname(), "", ""));
         } catch(IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }

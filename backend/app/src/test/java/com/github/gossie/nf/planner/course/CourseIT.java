@@ -18,7 +18,7 @@ public class CourseIT {
 
     @Test
     void integrationTest() {
-        ResponseEntity<UserDTO> createUserResponse = restTemplate.postForEntity("/api/users", new UserDTO("test@email.de", "123456a", "123456a"), UserDTO.class);
+        ResponseEntity<UserDTO> createUserResponse = restTemplate.postForEntity("/api/users", new UserDTO("test@email.de", "Max", "Mustermann", "123456a", "123456a"), UserDTO.class);
         assertThat(createUserResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
         ResponseEntity<String> loginResponse = restTemplate.postForEntity("/api/users/login", new LoginData("test@email.de", "123456a"), String.class);
