@@ -55,7 +55,7 @@ export default function Courses() {
                         </div>)
                     }
                 </div>
-                <div onClick={logout}>Logout</div>
+                <div className="cursor-pointer" onClick={logout}>Logout</div>
                 <div>
                     <Outlet />
                 </div>
