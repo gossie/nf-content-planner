@@ -40,8 +40,8 @@ export default function Login() {
             <div>
                 <h2 className="text-xl pb-5 font-bold">{t('headlineLogin')}</h2>
                 <div>
-                    <Input placeholder={t('email')} value={email} onChange={setEmail} additionalCss="mr-4" />
-                    <Input placeholder={t('password')} value={password} onChange={setPassword} type="password" additionalCss="mr-4" />
+                    <Input placeholder={t('email')} value={email} onChange={setEmail} onKeyUp={ev => {if(ev.key === 'Enter') {login()}}} additionalCss="mr-4" />
+                    <Input placeholder={t('password')} value={password} onChange={setPassword} onKeyUp={ev => {if(ev.key === 'Enter') {login()}}} type="password" additionalCss="mr-4" />
                     <Button label={t('buttonLogin')} onClick={login} />
                 </div>
                 <div>
