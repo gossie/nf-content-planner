@@ -3,7 +3,6 @@ import { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { deleteTopic, removeVoteForTopic, voteForTopic } from "./http-client";
 import { Course, Topic } from "./model"
-import { useState } from "react";
 
 interface TopicElementProps {
     topic: Topic;
