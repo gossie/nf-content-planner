@@ -3,7 +3,6 @@ import { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { deleteTopic, removeVoteForTopic, voteForTopic } from "./http-client";
 import { Course, Topic } from "./model"
-import { decode } from "jsonwebtoken";
 import { useState } from "react";
 
 interface TopicElementProps {
@@ -13,8 +12,6 @@ interface TopicElementProps {
 }
 
 export default function TopicElement(props: TopicElementProps) {
-
-    const [userId, setUserId] = useState(decode(localStorage.getItem('jwt')!, {json: true})?.userId as string);
 
     const navigate = useNavigate();
 
@@ -43,7 +40,7 @@ export default function TopicElement(props: TopicElementProps) {
                 {props.topic.description}
                 <br />
                 <span>{t('topicVotes', {votes: props.topic.allVotes})}</span>
-                { [...Array(props.topic.userVotes)].map((i: number) => <span key={i}>.</span>)  }
+                { [...Array(props.topic.userVotes)].map((i: number) => <span key={i} onClick={removeVote}>.</span>)  }
             </p>
             <CheckIcon className="h-5 w-5 text-blue-500 text-right cursor-pointer" onClick={voteTopic} />
         </div>
