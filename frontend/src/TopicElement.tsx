@@ -44,7 +44,7 @@ export default function TopicElement(props: TopicElementProps) {
                 <span>
                     <CheckIcon className="h-5 w-5 text-blue-500 text-right cursor-pointer" onClick={voteTopic} />
                 </span>
-                <span>
+                <span className="flex">
                     { [...Array(props.topic.userVotes)].map((i: number) => <UserCircleIcon key={i} className="h-5 w-5 text-blue-500 text-right cursor-pointer" onClick={removeVote} />)  }
                 </span>
             </div>
