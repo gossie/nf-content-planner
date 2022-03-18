@@ -71,9 +71,9 @@ class DefaultCourseService implements CourseService {
     }
 
     @Override
-    public Optional<Course> remove(String courseId, String topicId, User user) {
+    public Optional<Course> removeVote(String courseId, String topicId, User user) {
         return courseRepository.get(courseId)
-                .map(course -> course.removeVotes(topicId, user.id()))
+                .map(course -> course.removeVote(topicId, user.id()))
                 .map(courseRepository::save);
     }
 

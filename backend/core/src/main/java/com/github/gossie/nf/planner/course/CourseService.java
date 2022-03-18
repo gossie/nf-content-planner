@@ -22,5 +22,5 @@ public interface CourseService {
 
     long determineNumberOfLeftVotes(String id, User user);
 
-    Optional<Course> remove(String courseId, String topicId, User user);
+    Optional<Course> removeVote(String courseId, String topicId, User user);
 }

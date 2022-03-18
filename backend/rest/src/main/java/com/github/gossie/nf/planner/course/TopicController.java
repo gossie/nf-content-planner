@@ -43,14 +43,13 @@ public class TopicController {
     @DeleteMapping("/{topicId}/votes")
     public ResponseEntity<CourseDTO> removeVote(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
         return ResponseEntity.of(userService.findUser(principal.getName())
-                .flatMap(user -> courseService.remove(courseId, topicId, user).map(course -> courseMapper.map(course, user.id()))));
+                .flatMap(user -> courseService.removeVote(courseId, topicId, user).map(course -> courseMapper.map(course, user.id()))));
     }
 
     @DeleteMapping("/{topicId}")
     public void deleteTopic(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
         userService.findUser(principal.getName())
                         .ifPresent(user -> courseService.deleteTopic(courseId, topicId, user.id()));
-        ;
     }
 
 }
