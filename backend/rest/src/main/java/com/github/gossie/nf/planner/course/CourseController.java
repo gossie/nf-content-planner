@@ -59,7 +59,7 @@ public class CourseController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.FORBIDDEN).build());
     }
 
-    @GetMapping("/{id}/allVotes")
+    @GetMapping("/{id}/votes")
     public ResponseEntity<Long> getNumberOfLeftVotes(@PathVariable String id, Principal principal) {
         return ResponseEntity.of(userService.findUser(principal.getName())
                 .map(user -> courseService.determineNumberOfLeftVotes(id, user)));
