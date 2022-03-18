@@ -48,8 +48,9 @@ class DefaultCourseService implements CourseService {
     }
 
     @Override
-    public void deleteTopic(String courseId, String topicId) {
+    public void deleteTopic(String courseId, String topicId, String userId) {
         courseRepository.get(courseId)
+                .filter(course -> Objects.equals(course.userId(), userId))
                 .map(course -> course.removeTopic(topicId))
                 .ifPresent(courseRepository::save);
     }

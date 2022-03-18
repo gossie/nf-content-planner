@@ -47,8 +47,10 @@ public class TopicController {
     }
 
     @DeleteMapping("/{topicId}")
-    public void deleteTopic(@PathVariable String courseId, @PathVariable String topicId) {
-        courseService.deleteTopic(courseId, topicId);
+    public void deleteTopic(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
+        userService.findUser(principal.getName())
+                        .ifPresent(user -> courseService.deleteTopic(courseId, topicId, user.id()));
+        ;
     }
 
 }
