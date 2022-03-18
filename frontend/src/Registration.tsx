@@ -38,17 +38,21 @@ export default function Registration() {
     };
 
     return (
-        <div>
-            <h2 className="text-xl pb-5 font-bold">{t('headlineRegistration')}</h2>
+        <div className="flex justify-around w-full">
             <div>
-                <Input placeholder={t('email')} value={email} onChange={setEmail} />
-                <Input placeholder={t('password')} value={password} onChange={setPassword} type="password" />
-                <Input placeholder={t('passwordAgain')} value={passwordAgain} onChange={setPasswordAgain} type="password" />
-                <Button label={t('buttonRegistration')} onClick={register} />
-                { errorMessage && t(errorMessage) }
-            </div>
-            <div>
-                <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">GitHub</a>
+                <h2 className="text-xl pb-5 font-bold">{t('headlineRegistration')}</h2>
+                <div>
+                    <div>
+                        <Input placeholder={t('email')} value={email} onChange={setEmail} />
+                        <Input placeholder={t('password')} value={password} onChange={setPassword} type="password" />
+                        <Input placeholder={t('passwordAgain')} value={passwordAgain} onChange={setPasswordAgain} type="password" />
+                        <Button label={t('buttonRegistration')} onClick={register} />
+                    </div>
+                    { errorMessage && <div>{t(errorMessage)}</div> }
+                </div>
+                <div>
+                    <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">GitHub</a>
+                </div>
             </div>
         </div>
     )

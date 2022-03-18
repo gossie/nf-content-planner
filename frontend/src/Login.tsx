@@ -36,15 +36,17 @@ export default function Login() {
     };
 
     return (
-        <div>
-            <h2 className="text-xl pb-5 font-bold">{t('headlineLogin')}</h2>
+        <div className="flex justify-around w-full">
             <div>
-                <Input placeholder={t('email')} value={email} onChange={setEmail} />
-                <Input placeholder={t('password')} value={password} onChange={setPassword} type="password" />
-                <Button label={t('buttonLogin')} onClick={login} />
-            </div>
-            <div>
-                <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">GitHub</a>
+                <h2 className="text-xl pb-5 font-bold">{t('headlineLogin')}</h2>
+                <div>
+                    <Input placeholder={t('email')} value={email} onChange={setEmail} />
+                    <Input placeholder={t('password')} value={password} onChange={setPassword} type="password" />
+                    <Button label={t('buttonLogin')} onClick={login} />
+                </div>
+                <div>
+                    <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">GitHub</a>
+                </div>
             </div>
         </div>
     )

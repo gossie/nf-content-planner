@@ -45,18 +45,20 @@ export default function Courses() {
     }
 
     return (
-        <div>
-            <Input placeholder={t('placeholderCourseName')} value={courseName} onChange={setCourseName} /><button onClick={createNewCourse}>{t('buttonCreateCourse')}</button>
+        <div className="flex justify-around w-full">
             <div>
-                { courses.map(c =>
-                    <div key={c.id}>
-                        <Link to={c.id}>{c.name}</Link>
-                    </div>)
-                }
-            </div>
-            <div onClick={logout}>Logout</div>
-            <div>
-                <Outlet />
+                <Input placeholder={t('placeholderCourseName')} value={courseName} onChange={setCourseName} /><button onClick={createNewCourse}>{t('buttonCreateCourse')}</button>
+                <div>
+                    { courses.map(c =>
+                        <div key={c.id}>
+                            <Link to={c.id}>{c.name}</Link>
+                        </div>)
+                    }
+                </div>
+                <div onClick={logout}>Logout</div>
+                <div>
+                    <Outlet />
+                </div>
             </div>
         </div>
     )

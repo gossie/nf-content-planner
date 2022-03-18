@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "./common-elements/Button";
+import ErrorMessage from "./common-elements/ErrorMessage";
 import Input from "./common-elements/Input";
 import { addTopicToCourse, deleteCourse, fetchCourse, fetchVotes } from "./http-client";
 import { Course } from "./model";
@@ -70,7 +71,7 @@ export default function CourseElement() {
                             </div>
                             <div>
                                 <Button label={t('buttonDeleteCourse')} onClick={deleteExistingCourse} />
-                                { errorMessage && <div className="border-2 border-red-500 rounded-md text-red-500 my-2 p-2">{t(errorMessage)}</div> }
+                                { errorMessage && <ErrorMessage message={errorMessage} /> }
                             </div>
                             <div>
                                 <span>{t('votes', {"votes": leftVotes})}</span>
