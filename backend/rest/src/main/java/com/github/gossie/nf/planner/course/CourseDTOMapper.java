@@ -22,11 +22,11 @@ class CourseDTOMapper {
         );
     }
 
-    CourseDTO map(Course course) {
+    CourseDTO map(Course course, String userId) {
         return new CourseDTO(
                 course.id(),
                 course.name(),
-                new ArrayList<>(course.topics().stream().map(t -> topicMapper.map(t, course.id())).sorted(Comparator.comparingInt(TopicDTO::votes).reversed()).toList()),
+                new ArrayList<>(course.topics().stream().map(t -> topicMapper.map(t, course.id(), userId)).sorted(Comparator.comparingInt(TopicDTO::votes).reversed()).toList()),
                 course.userId()
         );
     }

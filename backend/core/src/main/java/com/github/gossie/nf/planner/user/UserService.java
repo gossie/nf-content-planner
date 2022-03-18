@@ -11,4 +11,5 @@ public interface UserService {
     Optional<User> findByGithubId(String id);
 
     Optional<User> findUser(String which);
+
 }

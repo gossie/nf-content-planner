@@ -118,8 +118,24 @@ export function deleteTopic(topic: Topic, navigate: NavigateFunction) {
 }
 
 export function voteForTopic(topic: Topic, navigate: NavigateFunction) {
-    return fetch(`${process.env.REACT_APP_BASE_URL}${topic.links.find(l => l.rel === 'self')?.href}`, {
-        method: 'PATCH',
+    return fetch(`${process.env.REACT_APP_BASE_URL}${topic.links.find(l => l.rel === 'vote')?.href}`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        }
+    })
+    .then(response => {
+        if (response.status === 401 || response.status === 403) {
+            throw new Error();
+        }
+        return response.json()
+    })
+    .catch(() => navigate('/login'))
+}
+
+export function removeVoteForTopic(topic: Topic, navigate: NavigateFunction) {
+    return fetch(`${process.env.REACT_APP_BASE_URL}${topic.links.find(l => l.rel === 'vote')?.href}`, {
+        method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('jwt')}`
         }

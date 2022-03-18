@@ -23,4 +23,12 @@ public record Course(String id, String name, List<Topic> topics, String userId) 
                 .ifPresent(t -> t.votes().add(userId));
         return this;
     }
+
+    public Course removeVotes(String topicId, String id) {
+        topics.stream()
+                .filter(t -> Objects.equals(t.id(), topicId))
+                .findFirst()
+                .ifPresent(t -> t.votes().remove(userId));
+        return this;
+    }
 }

@@ -1,8 +1,10 @@
 import { CheckIcon, XIcon } from "@heroicons/react/solid";
 import { t } from "i18next";
 import { useNavigate } from "react-router-dom";
-import { deleteTopic, voteForTopic } from "./http-client";
+import { deleteTopic, removeVoteForTopic, voteForTopic } from "./http-client";
 import { Course, Topic } from "./model"
+import { decode } from "jsonwebtoken";
+import { useState } from "react";
 
 interface TopicElementProps {
     topic: Topic;
@@ -11,6 +13,8 @@ interface TopicElementProps {
 }
 
 export default function TopicElement(props: TopicElementProps) {
+
+    const [userId, setUserId] = useState(decode(localStorage.getItem('jwt')!, {json: true})?.userId as string);
 
     const navigate = useNavigate();
 
@@ -21,9 +25,13 @@ export default function TopicElement(props: TopicElementProps) {
 
     const voteTopic = () => {
         voteForTopic(props.topic, navigate)
-            .then((course: Course) => props.onTopicVote(course))
-            .catch(e => console.error(e.message, e));
+            .then((course: Course) => props.onTopicVote(course));
     };
+
+    const removeVote = () => {
+        removeVoteForTopic(props.topic, navigate)
+            .then(() => (course: Course) => props.onTopicVote(course));
+    }
 
     return (
         <div className="group block max-w-xs mx-auto rounded-lg p-6 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 mb-3">
@@ -34,7 +42,8 @@ export default function TopicElement(props: TopicElementProps) {
             <p className="text-slate-500 text-sm">
                 {props.topic.description}
                 <br />
-                {t('topicVotes', {votes: props.topic.votes})}
+                <span>{t('topicVotes', {votes: props.topic.allVotes})}</span>
+                { [...Array(props.topic.userVotes)].map((i: number) => <span key={i}>.</span>)  }
             </p>
             <CheckIcon className="h-5 w-5 text-blue-500 text-right cursor-pointer" onClick={voteTopic} />
         </div>

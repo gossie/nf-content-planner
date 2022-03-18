@@ -34,11 +34,16 @@ public class TopicController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PatchMapping("/{topicId}")
+    @PostMapping("/{topicId}/votes")
     public ResponseEntity<CourseDTO> vote(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
-        return ResponseEntity.of(userService.findByEmail(principal.getName())
-                .flatMap(user -> courseService.vote(courseId, topicId, user))
-                .map(courseMapper::map));
+        return ResponseEntity.of(userService.findUser(principal.getName())
+                .flatMap(user -> courseService.vote(courseId, topicId, user).map(course -> courseMapper.map(course, user.id()))));
+    }
+
+    @DeleteMapping("/{topicId}/votes")
+    public ResponseEntity<CourseDTO> removeVote(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
+        return ResponseEntity.of(userService.findUser(principal.getName())
+                .flatMap(user -> courseService.remove(courseId, topicId, user).map(course -> courseMapper.map(course, user.id()))));
     }
 
     @DeleteMapping("/{topicId}")

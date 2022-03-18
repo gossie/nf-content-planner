@@ -70,6 +70,13 @@ class DefaultCourseService implements CourseService {
     }
 
     @Override
+    public Optional<Course> remove(String courseId, String topicId, User user) {
+        return courseRepository.get(courseId)
+                .map(course -> course.removeVotes(topicId, user.id()))
+                .map(courseRepository::save);
+    }
+
+    @Override
     public long determineNumberOfLeftVotes(String id, User user) {
         return 3 - courseRepository.get(id).stream()
                 .flatMap(course -> course.topics().stream())

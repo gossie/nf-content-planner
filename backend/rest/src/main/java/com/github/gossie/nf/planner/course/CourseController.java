@@ -25,16 +25,18 @@ public class CourseController {
     }
 
     @GetMapping
-    public List<CourseDTO> getCourses() {
-        return courseService.determineCourses().stream()
-                .map(courseMapper::map)
-                .toList();
+    public ResponseEntity<List<CourseDTO>> getCourses(Principal principal) {
+        return ResponseEntity.of(userService.findUser(principal.getName())
+                .map(user -> courseService.determineCourses().stream()
+                        .map(course -> courseMapper.map(course, user.id()))
+                        .toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CourseDTO> getCourse(@PathVariable String id) {
-        return ResponseEntity.of(courseService.determineCourse(id)
-                .map(courseMapper::map));
+    public ResponseEntity<CourseDTO> getCourse(@PathVariable String id, Principal principal) {
+        return ResponseEntity.of(userService.findUser(principal.getName())
+                .flatMap(user -> courseService.determineCourse(id)
+                        .map(course -> courseMapper.map(course, user.id()))));
     }
 
     @PostMapping
@@ -52,8 +54,7 @@ public class CourseController {
     public ResponseEntity<CourseDTO> deleteCourse(@PathVariable String id, Principal principal) {
         return userService.findUser(principal.getName())
                 .map(User::id)
-                .flatMap(userId -> courseService.deleteCourse(id, userId))
-                .map(courseMapper::map)
+                .flatMap(userId -> courseService.deleteCourse(id, userId).map(course -> courseMapper.map(course, userId)))
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.FORBIDDEN).build());
     }

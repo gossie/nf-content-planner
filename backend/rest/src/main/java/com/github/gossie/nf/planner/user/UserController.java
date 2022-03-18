@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -43,12 +44,19 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginData loginData) {
+    public ResponseEntity<String> login(@RequestBody LoginData loginData) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginData.email(), loginData.password()));
-            return jwtUtils.createToken(new HashMap<>(), loginData.email());
+            return ResponseEntity.of(userService.findByEmail(loginData.email())
+                    .map(user -> createToken(loginData, user)));
         } catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials");
         }
+    }
+
+    private String createToken(LoginData loginData, User user) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginData.email(), loginData.password()));
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.id());
+        return jwtUtils.createToken(claims, loginData.email());
     }
 }
