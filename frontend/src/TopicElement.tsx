@@ -37,7 +37,7 @@ export default function TopicElement(props: TopicElementProps) {
             </div>
             <p className="text-slate-500 text-sm">
                 {props.topic.description}
-                <br />
+                <br /><br />
                 {t('topicVotes', {votes: props.topic.allVotes})}
             </p>
             <div className="flex justify-between">
