@@ -77,7 +77,7 @@ export default function CourseElement() {
                                 <span>{t('votes', {"votes": leftVotes})}</span>
                             </div>
                         </div>
-                        <div className="border-r-2" />
+                        <div className="border-r-2 mx-4" />
                         <div>
                             <h2 className="text-xl pb-5 font-bold">{t('headlineTopics')}</h2>
                             <div className="mb-3">
