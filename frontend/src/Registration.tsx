@@ -83,8 +83,7 @@ export default function Registration() {
                     <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">{t('thirdPartyLogin', {company: 'GitHub'})}</a>
                 </div>
                 <div className="mt-4">
-                    <span>{t('goToLogin')}</span>
-                    <Link to="/login">{t('loginLinkText')}</Link>
+                    <span>{t('goToLogin')}</span> <Link to="/login" className="underline">{t('loginLinkText')}</Link>
                 </div>
             </div>
         </div>
