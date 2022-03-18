@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./common-elements/Button";
 import Input from "./common-elements/Input";
 
@@ -46,6 +46,10 @@ export default function Login() {
                 </div>
                 <div>
                     <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">{t('thirdPartyLogin', {company: 'GitHub'})}</a>
+                </div>
+                <div className="mt-4">
+                    <span>{t('goToRegister')}</span>
+                    <Link to="/registration">{t('registerLinkText')}</Link>
                 </div>
             </div>
         </div>

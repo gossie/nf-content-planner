@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./common-elements/Button";
 import ErrorMessage from "./common-elements/ErrorMessage";
 import Input from "./common-elements/Input";
@@ -81,6 +81,10 @@ export default function Registration() {
                 </div>
                 <div>
                     <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">{t('thirdPartyLogin', {company: 'GitHub'})}</a>
+                </div>
+                <div className="mt-4">
+                    <span>{t('goToLogin')}</span>
+                    <Link to="/login">{t('loginLinkText')}</Link>
                 </div>
             </div>
         </div>

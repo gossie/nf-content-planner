@@ -20,5 +20,9 @@
     "back": "Back",
     "votes": "You've got {{votes}} votes left.",
     "topicVotes": "{{votes}} votes",
-    "errorActionForbidden": "You are not allowed to perform that action"
+    "errorActionForbidden": "You are not allowed to perform that action",
+    "goToLogin": "Already got an account?",
+    "loginLinkText": "Login",
+    "goToRegister": "Don't have an account yet?",
+    "registerLinkText": "Get one"
 }

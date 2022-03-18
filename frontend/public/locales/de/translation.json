@@ -20,5 +20,9 @@
     "back": "Zurück",
     "votes": "Du hast noch {{votes}} Stimmen.",
     "topicVotes": "{{votes}} Stimmen",
-    "errorActionForbidden": "Du darfst diese Aktion nicht durchführen"
+    "errorActionForbidden": "Du darfst diese Aktion nicht durchführen",
+    "goToLogin": "Du hast schon einen Account?",
+    "loginLinkText": "Ab zum Login",
+    "goToRegister": "Du hast keinen Account?",
+    "registerLinkText": "Erstell dir einen"
 }

@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import App from './App';
 import Courses from './Courses';
 import CourseElement from './CourseElement';
 import reportWebVitals from './reportWebVitals';
@@ -16,7 +15,7 @@ ReactDOM.render(
         <Suspense fallback="Loading...">
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<App />} />
+                    <Route path="/" element={<Login />} />
                     <Route path="/registration" element={<Registration />} />
                     <Route path="/login" element={<Login />} />
         
