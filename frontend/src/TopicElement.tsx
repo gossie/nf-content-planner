@@ -1,4 +1,4 @@
-import { CheckIcon, XIcon } from "@heroicons/react/solid";
+import { CheckIcon, UserCircleIcon, XIcon } from "@heroicons/react/solid";
 import { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { deleteTopic, removeVoteForTopic, voteForTopic } from "./http-client";
@@ -38,10 +38,16 @@ export default function TopicElement(props: TopicElementProps) {
             <p className="text-slate-500 text-sm">
                 {props.topic.description}
                 <br />
-                <span>{t('topicVotes', {votes: props.topic.allVotes})}</span>
-                { [...Array(props.topic.userVotes)].map((i: number) => <span key={i} onClick={removeVote}>.</span>)  }
+                {t('topicVotes', {votes: props.topic.allVotes})}
             </p>
-            <CheckIcon className="h-5 w-5 text-blue-500 text-right cursor-pointer" onClick={voteTopic} />
+            <div className="flex justify-between">
+                <span>
+                    <CheckIcon className="h-5 w-5 text-blue-500 text-right cursor-pointer" onClick={voteTopic} />
+                </span>
+                <span>
+                    { [...Array(props.topic.userVotes)].map((i: number) => <UserCircleIcon key={i} className="h-5 w-5 text-blue-500 text-right cursor-pointer" onClick={removeVote} />)  }
+                </span>
+            </div>
         </div>
     )
 }
