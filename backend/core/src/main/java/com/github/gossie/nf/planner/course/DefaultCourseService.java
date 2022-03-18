@@ -2,6 +2,7 @@ package com.github.gossie.nf.planner.course;
 
 import com.github.gossie.nf.planner.user.User;
 import com.github.gossie.nf.planner.user.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,12 @@ class DefaultCourseService implements CourseService {
 
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
+    private final int votesPerUser;
 
-    public DefaultCourseService(CourseRepository courseRepository,UserRepository userRepository) {
+    public DefaultCourseService(CourseRepository courseRepository, UserRepository userRepository, @Value("${app.user.max-votes}") int votesPerUser) {
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
+        this.votesPerUser = votesPerUser;
     }
 
     @Override
@@ -79,7 +82,7 @@ class DefaultCourseService implements CourseService {
 
     @Override
     public long determineNumberOfLeftVotes(String id, User user) {
-        return 3 - courseRepository.get(id).stream()
+        return votesPerUser - courseRepository.get(id).stream()
                 .flatMap(course -> course.topics().stream())
                 .filter(t -> t.votes() != null)
                 .flatMap(topic -> topic.votes().stream())
@@ -92,6 +95,6 @@ class DefaultCourseService implements CourseService {
                 .filter(t -> t.votes() != null)
                 .flatMap(t -> t.votes().stream())
                 .filter(id -> Objects.equals(id, user.id()))
-                .count() < 3;
+                .count() < votesPerUser;
     }
 }
