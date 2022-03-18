@@ -80,7 +80,7 @@ export default function Registration() {
                     { errorMessage && <ErrorMessage message={t(errorMessage)} /> }
                 </div>
                 <div>
-                    <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">GitHub</a>
+                    <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">{t('thirdPartyLogin', {company: 'GitHub'})}</a>
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@
     "mandatoryErrorMessage": "Ein Pflichtfeld wurde vergessen",
     "passwordErrorMessage": "Die Passwörter stimmen nicht überein",
     "buttonLogin": "Login",
+    "thirdPartyLogin": "Mit {{company}} einloggen",
     "errorPasswordMismatch": "Die Passörter stimmen nicht überein",
     "errorEmailExists": "Die E-Mail-Adresse ist schon vergeben",
     "headlineLogin": "Login",

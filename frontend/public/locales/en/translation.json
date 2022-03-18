@@ -9,6 +9,7 @@
     "mandatoryErrorMessage": "A mandatory field was not set",
     "passwordErrorMessage": "The passwords do not match",
     "buttonLogin": "Login",
+    "thirdPartyLogin": "Login with {{company}}",
     "errorPasswordMismatch": "The passwords do not match",
     "errorEmailExists": "The e-mail address already exists",
     "headlineLogin": "Login",
