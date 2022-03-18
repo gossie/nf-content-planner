@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "./common-elements/Button";
-import ErrorMessage from "./common-elements/ErrorMessage";
 import Input from "./common-elements/Input";
-import { addTopicToCourse, deleteCourse, fetchCourse, fetchVotes } from "./http-client";
+import { addTopicToCourse, fetchCourse, fetchVotes } from "./http-client";
 import { Course } from "./model";
 import TopicElement from "./TopicElement";
 
@@ -43,7 +42,7 @@ export default function CourseElement() {
             fetchOneCourse();
         });
     };
-
+/*
     const deleteExistingCourse = () => {
         deleteCourse(course, navigate)
             .then(() => {
@@ -53,7 +52,7 @@ export default function CourseElement() {
             })
             .catch(e => setErrorMessage(e.message));
     };
-
+*/
     useEffect(() => {
         const timeoutId = setTimeout(() => setErrorMessage(''), 15000);
         return () => clearTimeout(timeoutId);
@@ -66,6 +65,7 @@ export default function CourseElement() {
                     <h1 className="text-2xl text-center pb-10 font-bold">{course.name}</h1>
                     <div className="flex flex-row justify-around">
                         <div>
+                            {/*
                             <div>
                                 <Link to="/courses">{t('back')}</Link>
                             </div>
@@ -73,6 +73,7 @@ export default function CourseElement() {
                                 <Button label={t('buttonDeleteCourse')} onClick={deleteExistingCourse} />
                                 { errorMessage && <ErrorMessage message={errorMessage} /> }
                             </div>
+                            */}
                             <div>
                                 <span>{t('votes', {"votes": leftVotes})}</span>
                             </div>

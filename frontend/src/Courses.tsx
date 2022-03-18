@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "./common-elements/Input";
 import { fetchAllCourses, createCourse } from "./http-client";
 import { Course } from "./model";
@@ -38,12 +38,12 @@ export default function Courses() {
                 fetchAll();
             });
     }
-
+/*
     const logout = () => {
         localStorage.removeItem('jwt');
         navigate('/login');
     }
-
+*/
     return (
         <div className="flex justify-around w-full">
             <div>
@@ -55,10 +55,7 @@ export default function Courses() {
                         </div>)
                     }
                 </div>
-                <div className="cursor-pointer" onClick={logout}>Logout</div>
-                <div>
-                    <Outlet />
-                </div>
+                {/*<div className="cursor-pointer" onClick={logout}>Logout</div>*/}
             </div>
         </div>
     )
