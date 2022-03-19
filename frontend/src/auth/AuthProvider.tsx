@@ -18,8 +18,17 @@ export default function AuthProvider({ children }: Param) {
         const query = new URLSearchParams(window.location.search);
         const jwt = query.get('jwt');
         if (jwt) {
-            setToken(jwt);
-            navigate('/courses');
+            fetch(`${process.env.REACT_APP_BASE_URL}/api/users/me`, {
+                headers: {
+                    'Authorization': token
+                }
+            })
+            .then(response => response.json())
+            .then((user: User) => {
+                setToken(jwt);
+                setUser(user);
+                navigate('/courses');
+            })
         }
     }, [navigate])
 
