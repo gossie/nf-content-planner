@@ -111,7 +111,7 @@ export function deleteTopic(topic: Topic, token: string, navigate: NavigateFunct
     })
     .then(response => {
         if (response.status === 401 || response.status === 403) {
-            throw new Error();
+            throw new Error('errorActionForbidden');
         }
     })
     .catch(() => navigate('/login'))

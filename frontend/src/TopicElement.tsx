@@ -1,7 +1,9 @@
 import { CheckIcon, UserCircleIcon, XIcon } from "@heroicons/react/solid";
 import { t } from "i18next";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./auth/AuthProvider";
+import ErrorMessage from "./common-elements/ErrorMessage";
 import { deleteTopic, removeVoteForTopic, voteForTopic } from "./http-client";
 import { Course, Topic } from "./model"
 
@@ -13,12 +15,15 @@ interface TopicElementProps {
 
 export default function TopicElement(props: TopicElementProps) {
 
+    const [errorMessage, setErrorMessage] = useState('');
+
     const { token } = useAuth();
     const navigate = useNavigate();
 
     const deleteExistingTopic = () => {
         deleteTopic(props.topic, token, navigate)
-            .then(() => props.onTopicDeletion());
+            .then(() => props.onTopicDeletion())
+            .catch(e => setErrorMessage(e.message));
     };
 
     const voteTopic = () => {
@@ -37,6 +42,7 @@ export default function TopicElement(props: TopicElementProps) {
                 <h3 className="text-slate-900 text-sm font-semibold">{props.topic.name}</h3>
                 <XIcon className="h-5 w-5 text-blue-500 text-right cursor-pointer" onClick={deleteExistingTopic} />
             </div>
+            { errorMessage && <ErrorMessage message={errorMessage} /> }
             <p className="text-slate-500 text-sm">
                 {props.topic.description}
                 <br /><br />
