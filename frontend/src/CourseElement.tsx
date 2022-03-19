@@ -83,7 +83,7 @@ export default function CourseElement() {
                         <div className="border-r-2 mx-4" />
                         <div>
                             <h2 className="text-xl pb-5 font-bold">{t('headlineTopics')}</h2>
-                            <div className="mb-3">
+                            <div className="flex flex-col mb-4">
                                 <Input placeholder="Topic" value={newTopicName} onChange={setNewTopicName} />
                                 <textarea className="border-b-2" placeholder="Beschreibung" value={newTopicDescription} onChange={ev => setNewTopicDescription(ev.target.value)}></textarea>
                                 <Button label="Speichern" onClick={addTopic} />
