@@ -50,7 +50,7 @@ export default function TopicElement(props: TopicElementProps) {
             { errorMessage && <ErrorMessage message={errorMessage} /> }
             <p className="text-slate-500 text-sm">
                 {props.topic.description.split('\n').map((text, i) => <div key={i}>{text}</div>)}
-                <br /><br />
+                <br />
                 {t('topicVotes', {votes: props.topic.allVotes})}
             </p>
             <div className="flex justify-between">
