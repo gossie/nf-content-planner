@@ -110,11 +110,12 @@ export function deleteTopic(topic: Topic, token: string, navigate: NavigateFunct
         }
     })
     .then(response => {
-        if (response.status === 401 || response.status === 403) {
+        if (response.status === 401) {
+            navigate('/login')
+        } else if (response.status === 403) {
             throw new Error('errorActionForbidden');
         }
     })
-    .catch(() => navigate('/login'))
 }
 
 export function voteForTopic(topic: Topic, token: string, navigate: NavigateFunction) {
