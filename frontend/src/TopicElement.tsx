@@ -44,7 +44,7 @@ export default function TopicElement(props: TopicElementProps) {
             </div>
             { errorMessage && <ErrorMessage message={errorMessage} /> }
             <p className="text-slate-500 text-sm">
-                {props.topic.description}
+                {props.topic.description.split('\n').map((text, i) => <div key={i}>{text}</div>)}
                 <br /><br />
                 {t('topicVotes', {votes: props.topic.allVotes})}
             </p>
