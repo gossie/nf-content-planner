@@ -18,6 +18,7 @@ export default function AuthProvider({ children }: Param) {
         const query = new URLSearchParams(window.location.search);
         const jwt = query.get('jwt');
         if (jwt) {
+            setToken(jwt);
             fetch(`${process.env.REACT_APP_BASE_URL}/api/users/me`, {
                 headers: {
                     'Authorization': jwt
@@ -25,7 +26,6 @@ export default function AuthProvider({ children }: Param) {
             })
             .then(response => response.json())
             .then((user: User) => {
-                setToken(jwt);
                 setUser(user);
                 setTimeout(() => navigate('/courses'));
             })
@@ -50,6 +50,7 @@ export default function AuthProvider({ children }: Param) {
             throw new Error('error')
         })
         .then((token: string) => {
+            setToken(token);
             fetch(`${process.env.REACT_APP_BASE_URL}/api/users/me`, {
                 headers: {
                     'Authorization': token
@@ -57,7 +58,6 @@ export default function AuthProvider({ children }: Param) {
             })
             .then(response => response.json())
             .then((user: User) => {
-                setToken(token);
                 setUser(user);
                 setTimeout(() => navigate('/courses'));
             })
