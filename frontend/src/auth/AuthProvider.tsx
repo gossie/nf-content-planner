@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { User } from "../model";
 import AuthContext from "./AuthContext";
@@ -13,6 +13,15 @@ export default function AuthProvider({ children }: Param) {
     const [user, setUser] = useState({} as User);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const query = new URLSearchParams(window.location.search);
+        const jwt = query.get('jwt');
+        if (jwt) {
+            setToken(token);
+            navigate('/courses');
+        }
+    }, [navigate])
 
     const login = (email: string, password: string) => {
         return fetch(`${process.env.REACT_APP_BASE_URL}/api/users/login`, {
