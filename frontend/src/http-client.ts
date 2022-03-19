@@ -1,10 +1,10 @@
 import { NavigateFunction } from "react-router-dom"
 import { Course, Topic } from "./model"
 
-export function fetchAllCourses(navigate: NavigateFunction) {
+export function fetchAllCourses(token: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}/api/courses`, {
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${token}`
         }
     })
     .then(response => {
@@ -16,10 +16,10 @@ export function fetchAllCourses(navigate: NavigateFunction) {
     .catch(() => navigate('/login'))
 }
 
-export function fetchCourse(courseId: string, navigate: NavigateFunction) {
+export function fetchCourse(courseId: string, token: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}/api/courses/${courseId}`, {
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${token}`
         }
     })
     .then(response => {
@@ -31,12 +31,12 @@ export function fetchCourse(courseId: string, navigate: NavigateFunction) {
     .catch(() => navigate('/login'))
 }
 
-export function createCourse(courseName: string, navigate: NavigateFunction) {
+export function createCourse(courseName: string, token: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}/api/courses`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
             name: courseName,
@@ -51,11 +51,11 @@ export function createCourse(courseName: string, navigate: NavigateFunction) {
     .catch(() => navigate('/login'))
 }
 
-export function deleteCourse(course: Course, navigate: NavigateFunction) {
+export function deleteCourse(course: Course, token: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'self')?.href}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${token}`
         }
     })
     .then(response => {
@@ -67,12 +67,12 @@ export function deleteCourse(course: Course, navigate: NavigateFunction) {
     })
 }
 
-export function addTopicToCourse(course: Course, topicName: string, topicDescription: string, navigate: NavigateFunction) {
+export function addTopicToCourse(course: Course, topicName: string, topicDescription: string, token: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'create-topic')?.href}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
             name: topicName,
@@ -87,10 +87,10 @@ export function addTopicToCourse(course: Course, topicName: string, topicDescrip
     .catch(() => navigate('/login'))
 }
 
-export function fetchVotes(courseId: string, navigate: NavigateFunction) {
+export function fetchVotes(courseId: string, token: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}/api/courses/${courseId}/votes`, {
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${token}`
         }
     })
     .then(response => {
@@ -102,11 +102,11 @@ export function fetchVotes(courseId: string, navigate: NavigateFunction) {
     .catch(() => navigate('/login'))
 }
 
-export function deleteTopic(topic: Topic, navigate: NavigateFunction) {
+export function deleteTopic(topic: Topic, token: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}${topic.links.find(l => l.rel === 'self')?.href}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${token}`
         }
     })
     .then(response => {
@@ -117,11 +117,11 @@ export function deleteTopic(topic: Topic, navigate: NavigateFunction) {
     .catch(() => navigate('/login'))
 }
 
-export function voteForTopic(topic: Topic, navigate: NavigateFunction) {
+export function voteForTopic(topic: Topic, token: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}${topic.links.find(l => l.rel === 'vote')?.href}`, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${token}`
         }
     })
     .then(response => {
@@ -133,11 +133,11 @@ export function voteForTopic(topic: Topic, navigate: NavigateFunction) {
     .catch(() => navigate('/login'))
 }
 
-export function removeVoteForTopic(topic: Topic, navigate: NavigateFunction) {
+export function removeVoteForTopic(topic: Topic, token: string, navigate: NavigateFunction) {
     return fetch(`${process.env.REACT_APP_BASE_URL}${topic.links.find(l => l.rel === 'vote')?.href}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${token}`
         }
     })
     .then(response => {

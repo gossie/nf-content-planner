@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,12 @@ public class UserController {
         } catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials");
         }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> getCurrentUser(Principal principal) {
+        return ResponseEntity.of(userService.findUser(principal.getName())
+                .map(user -> new UserDTO(user.email(), user.firstname(), user.lastname(), "", "")));
     }
 
     private String createToken(LoginData loginData, User user) {

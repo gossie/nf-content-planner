@@ -1,6 +1,7 @@
 import { CheckIcon, UserCircleIcon, XIcon } from "@heroicons/react/solid";
 import { t } from "i18next";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./auth/AuthProvider";
 import { deleteTopic, removeVoteForTopic, voteForTopic } from "./http-client";
 import { Course, Topic } from "./model"
 
@@ -12,20 +13,21 @@ interface TopicElementProps {
 
 export default function TopicElement(props: TopicElementProps) {
 
+    const { token } = useAuth();
     const navigate = useNavigate();
 
     const deleteExistingTopic = () => {
-        deleteTopic(props.topic, navigate)
+        deleteTopic(props.topic, token, navigate)
             .then(() => props.onTopicDeletion());
     };
 
     const voteTopic = () => {
-        voteForTopic(props.topic, navigate)
+        voteForTopic(props.topic, token, navigate)
             .then((course: Course) => props.onTopicVote(course));
     };
 
     const removeVote = () => {
-        removeVoteForTopic(props.topic, navigate)
+        removeVoteForTopic(props.topic, token, navigate)
             .then((course: Course) => props.onTopicVote(course));
     }
 

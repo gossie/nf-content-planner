@@ -18,3 +18,7 @@ interface Link {
     href: string;
     rel: string;
 }
+
+export interface User {
+    firstname: string;
+}

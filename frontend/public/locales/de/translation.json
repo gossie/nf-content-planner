@@ -18,7 +18,7 @@
     "buttonDeleteCourse": "Kurs löschen",
     "headlineTopics": "Themen",
     "back": "Zurück",
-    "votes": "Du hast noch {{votes}} Stimmen.",
+    "votes": "Hallo {{name}}, du hast noch {{votes}} Stimmen.",
     "topicVotes": "{{votes}} Stimmen",
     "errorActionForbidden": "Du darfst diese Aktion nicht durchführen",
     "goToLogin": "Du hast schon einen Account?",

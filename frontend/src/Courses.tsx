@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "./auth/AuthProvider";
 import Input from "./common-elements/Input";
 import { fetchAllCourses, createCourse } from "./http-client";
 import { Course } from "./model";
@@ -11,6 +12,7 @@ export default function Courses() {
     const [courses, setCourses] = useState([] as Array<Course>)
 
     const { t } = useTranslation();
+    const { token } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +25,7 @@ export default function Courses() {
     }, [navigate])
 
     const fetchAll = useCallback(() => {
-        fetchAllCourses(navigate)
+        fetchAllCourses(token, navigate)
             .then((courses: Array<Course>) => setCourses(courses));
     }, [navigate]);
 
@@ -32,7 +34,7 @@ export default function Courses() {
     }, [fetchAll]);
 
     const createNewCourse = () => {
-        createCourse(courseName, navigate)
+        createCourse(courseName, token, navigate)
             .then(() => {
                 setCourseName('');
                 fetchAll();

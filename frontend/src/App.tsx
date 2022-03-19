@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 function App() {
 
-
     return (
         <div className="flex justify-around w-full">
             <div>

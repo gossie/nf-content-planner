@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "./auth/AuthProvider";
 import Button from "./common-elements/Button";
 import Input from "./common-elements/Input";
 import { addTopicToCourse, fetchCourse, fetchVotes } from "./http-client";
@@ -17,16 +18,17 @@ export default function CourseElement() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const { t } = useTranslation();
+    const { token, user } = useAuth();
     const navigate = useNavigate();
 
     const fetchOneCourse = useCallback(() => {
-        fetchCourse(params.courseId!, navigate)
+        fetchCourse(params.courseId!, token, navigate)
             .then((course: Course) => setCourse(course));
     }, [params.courseId, navigate]);
 
     const fetchLeftVotes = useCallback(() => {
-        fetchVotes(params.courseId!, navigate)
-            .then((votesAsString: string | void) => setLeftVotes(parseInt(votesAsString!)));
+        fetchVotes(params.courseId!, token, navigate)
+            .then((votesAsString: string) => setLeftVotes(parseInt(votesAsString!)));
     }, [params.courseId, navigate]);
 
     useEffect(() => {
@@ -35,7 +37,7 @@ export default function CourseElement() {
     }, [fetchOneCourse, fetchLeftVotes]);
 
     const addTopic = () => {
-        addTopicToCourse(course, newTopicName, newTopicDescription, navigate)
+        addTopicToCourse(course, newTopicName, newTopicDescription, token, navigate)
         .then(() => {
             setNewTopicName('');
             setNewTopicDescription('');
@@ -44,7 +46,7 @@ export default function CourseElement() {
     };
 /*
     const deleteExistingCourse = () => {
-        deleteCourse(course, navigate)
+        deleteCourse(course, token, navigate)
             .then(() => {
                 setNewTopicName('');
                 setNewTopicDescription('');
@@ -75,7 +77,7 @@ export default function CourseElement() {
                             </div>
                             */}
                             <div>
-                                <span>{t('votes', {"votes": leftVotes})}</span>
+                                <span>{t('votes', {"votes": leftVotes, "name": user.firstname})}</span>
                             </div>
                         </div>
                         <div className="border-r-2 mx-4" />

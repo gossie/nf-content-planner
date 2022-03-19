@@ -9,19 +9,21 @@ import "./i18n";
 import "./index.css";
 import Registration from './Registration';
 import Login from './Login';
+import AuthProvider from './auth/AuthProvider';
 
 ReactDOM.render(
     <React.StrictMode>
         <Suspense fallback="Loading...">
             <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/registration" element={<Registration />} />
-                    <Route path="/login" element={<Login />} />
-        
-                    <Route path="/courses" element={<Courses />} />
-                    <Route path="/courses/:courseId" element={<CourseElement />} />
-                </Routes>
+                <AuthProvider>
+                    <Routes>
+                        <Route path="/" element={<Login />} />
+                        <Route path="/registration" element={<Registration />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/courses" element={<Courses />} />
+                        <Route path="/courses/:courseId" element={<CourseElement />} />
+                    </Routes>
+                </AuthProvider>
             </BrowserRouter>
         </Suspense>
     </React.StrictMode>,

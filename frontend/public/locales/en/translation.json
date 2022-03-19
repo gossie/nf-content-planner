@@ -18,7 +18,7 @@
     "buttonDeleteCourse": "Delete course",
     "headlineTopics": "Topics",
     "back": "Back",
-    "votes": "You've got {{votes}} votes left.",
+    "votes": "Hello {{name}}, you've got {{votes}} votes left.",
     "topicVotes": "{{votes}} votes",
     "errorActionForbidden": "You are not allowed to perform that action",
     "goToLogin": "Already got an account?",
