@@ -18,7 +18,7 @@ export default function AuthProvider({ children }: Param) {
         const query = new URLSearchParams(window.location.search);
         const jwt = query.get('jwt');
         if (jwt) {
-            setToken(token);
+            setToken(jwt);
             navigate('/courses');
         }
     }, [navigate])
