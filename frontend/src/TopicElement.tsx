@@ -37,9 +37,8 @@ export default function TopicElement(props: TopicElementProps) {
     }
 
     useEffect(() => {
-        console.log('im moment ist die errorMessage ' + errorMessage + '. Ich warte jetzt 15 Sekunden.');
         const timeoutId = setTimeout(() => setErrorMessage(''), 15000);
-        return clearTimeout(timeoutId);
+        return () => clearTimeout(timeoutId);
     }, [errorMessage]);
 
     return (
