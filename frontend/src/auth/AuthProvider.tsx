@@ -20,7 +20,7 @@ export default function AuthProvider({ children }: Param) {
         if (jwt) {
             fetch(`${process.env.REACT_APP_BASE_URL}/api/users/me`, {
                 headers: {
-                    'Authorization': token
+                    'Authorization': jwt
                 }
             })
             .then(response => response.json())
