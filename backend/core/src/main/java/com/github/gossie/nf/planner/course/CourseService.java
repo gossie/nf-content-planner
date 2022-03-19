@@ -14,7 +14,7 @@ public interface CourseService {
 
     List<Course> determineCourses();
 
-    void deleteTopic(String courseId, String topicId, String userId);
+    Optional<Course> deleteTopic(String courseId, String topicId, String userId);
 
     Optional<Course> deleteCourse(String id, String userId);
 

@@ -47,9 +47,11 @@ public class TopicController {
     }
 
     @DeleteMapping("/{topicId}")
-    public void deleteTopic(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
-        userService.findUser(principal.getName())
-                        .ifPresent(user -> courseService.deleteTopic(courseId, topicId, user.id()));
+    public ResponseEntity<CourseDTO> deleteTopic(@PathVariable String courseId, @PathVariable String topicId, Principal principal) {
+        return userService.findUser(principal.getName())
+                .flatMap(user -> courseService.deleteTopic(courseId, topicId, user.id()).map(course -> courseMapper.map(course, user.id())))
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.FORBIDDEN).build());
     }
 
 }
