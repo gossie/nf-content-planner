@@ -15,19 +15,10 @@ export default function Courses() {
     const { token } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const query = new URLSearchParams(window.location.search);
-        const jwt = query.get('jwt');
-        if (jwt) {
-            localStorage.setItem('jwt', jwt);
-            navigate('/courses');
-        }
-    }, [navigate])
-
     const fetchAll = useCallback(() => {
         fetchAllCourses(token, navigate)
             .then((courses: Array<Course>) => setCourses(courses));
-    }, [navigate]);
+    }, [token, navigate]);
 
     useEffect(() => {
         fetchAll();

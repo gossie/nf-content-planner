@@ -24,12 +24,12 @@ export default function CourseElement() {
     const fetchOneCourse = useCallback(() => {
         fetchCourse(params.courseId!, token, navigate)
             .then((course: Course) => setCourse(course));
-    }, [params.courseId, navigate]);
+    }, [params.courseId, token, navigate]);
 
     const fetchLeftVotes = useCallback(() => {
         fetchVotes(params.courseId!, token, navigate)
-            .then((votesAsString: string) => setLeftVotes(parseInt(votesAsString!)));
-    }, [params.courseId, navigate]);
+            .then((votesAsString: string | void) => setLeftVotes(parseInt(votesAsString!)));
+    }, [params.courseId, token, navigate]);
 
     useEffect(() => {
         fetchOneCourse();

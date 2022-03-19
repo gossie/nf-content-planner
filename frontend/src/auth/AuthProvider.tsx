@@ -1,9 +1,13 @@
-import { ReactNode, useContext, useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { User } from "../model";
 import AuthContext from "./AuthContext";
 
-export default function AuthProvider({ children }) {
+interface Param {
+    children?: any;
+}
+
+export default function AuthProvider({ children }: Param) {
 
     const [token, setToken] = useState('');
     const [user, setUser] = useState({} as User);
