@@ -27,7 +27,7 @@ export default function AuthProvider({ children }: Param) {
             .then((user: User) => {
                 setToken(jwt);
                 setUser(user);
-                navigate('/courses');
+                setTimeout(() => navigate('/courses'));
             })
         }
     }, [navigate])
@@ -59,7 +59,7 @@ export default function AuthProvider({ children }: Param) {
             .then((user: User) => {
                 setToken(token);
                 setUser(user);
-                navigate('/courses');
+                setTimeout(() => navigate('/courses'));
             })
         });
     }
