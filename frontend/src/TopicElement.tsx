@@ -1,6 +1,6 @@
 import { CheckIcon, UserCircleIcon, XIcon } from "@heroicons/react/solid";
 import { t } from "i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./auth/AuthProvider";
 import ErrorMessage from "./common-elements/ErrorMessage";
@@ -35,6 +35,11 @@ export default function TopicElement(props: TopicElementProps) {
         removeVoteForTopic(props.topic, token, navigate)
             .then((course: Course) => props.onTopicVote(course));
     }
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => setErrorMessage(''), 15000);
+        return clearTimeout(timeoutId);
+    }, [errorMessage]);
 
     return (
         <div className="group block max-w-xs mx-auto rounded-lg p-6 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 mb-3">
