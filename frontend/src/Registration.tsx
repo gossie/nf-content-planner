@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./common-elements/Button";
 import ErrorMessage from "./common-elements/ErrorMessage";
+import GitHubLogin from "./common-elements/GitHubLogin";
 import Input from "./common-elements/Input";
 
 export default function Registration() {
@@ -79,9 +80,7 @@ export default function Registration() {
                     </div>
                     { errorMessage && <ErrorMessage message={t(errorMessage)} /> }
                 </div>
-                <div>
-                    <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">{t('thirdPartyLogin', {company: 'GitHub'})}</a>
-                </div>
+                <GitHubLogin />
                 <div className="mt-4">
                     <span>{t('goToLogin')}</span> <Link to="/login" className="underline">{t('loginLinkText')}</Link>
                 </div>

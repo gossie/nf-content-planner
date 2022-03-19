@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "./auth/AuthProvider";
 import Button from "./common-elements/Button";
 import ErrorMessage from "./common-elements/ErrorMessage";
+import GitHubLogin from "./common-elements/GitHubLogin";
 import Input from "./common-elements/Input";
 
 export default function Login() {
@@ -30,9 +31,7 @@ export default function Login() {
                     <Button label={t('buttonLogin')} onClick={performLogin} />
                 </div>
                 { errorMessage && <ErrorMessage message={errorMessage} /> }
-                <div>
-                    <a href="https://github.com/login/oauth/authorize?client_id=ac870a1600ec03b7be10">{t('thirdPartyLogin', {company: 'GitHub'})}</a>
-                </div>
+                <GitHubLogin />
                 <div className="mt-4">
                     <span>{t('goToRegister')}</span> <Link to="/registration" className="underline">{t('registerLinkText')}</Link>
                 </div>
