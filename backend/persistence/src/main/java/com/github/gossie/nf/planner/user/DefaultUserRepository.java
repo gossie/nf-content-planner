@@ -17,7 +17,7 @@ class DefaultUserRepository implements UserRepository {
 
     @Override
     public User createUser(User user) {
-        if (user.email() == null && user.githubId()) {
+        if (user.email() == null && user.githubId() != null) {
             return userMapper.map(userDocumentRepository.save(userMapper.map(user)));
         }
 
