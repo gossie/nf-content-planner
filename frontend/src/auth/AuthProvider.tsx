@@ -28,7 +28,7 @@ export default function AuthProvider({ children }: Param) {
                 setTimeout(() => navigate('/courses'));
             });
         }
-    }, [token]);
+    }, [token, navigate]);
 
     useEffect(() => {
         const query = new URLSearchParams(window.location.search);
@@ -36,7 +36,7 @@ export default function AuthProvider({ children }: Param) {
         if (jwt) {
             setToken(jwt);
         }
-    }, [navigate])
+    }, [])
 
     const login = (email: string, password: string) => {
         return fetch(`${process.env.REACT_APP_BASE_URL}/api/users/login`, {
