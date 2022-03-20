@@ -60,7 +60,7 @@ export default function Registration() {
                 <div>
                     <div>
                         <div>
-                            <Input placeholder={t('email')} value={email} onChange={setEmail} />
+                            <Input placeholder={t('email')} value={email} onChange={setEmail} type="email" />
                         </div>
                         <div>
                             <Input placeholder={t('firstname')} value={firstname} onChange={setFirstname} />
