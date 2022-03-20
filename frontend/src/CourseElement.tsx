@@ -46,7 +46,8 @@ export default function CourseElement() {
                     setNewTopicName('');
                     setNewTopicDescription('');
                     fetchOneCourse();
-                });
+                })
+                .catch(e => setErrorMessage(e.message));
         }
     };
 /*

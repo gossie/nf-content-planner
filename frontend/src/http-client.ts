@@ -80,11 +80,13 @@ export function addTopicToCourse(course: Course, topicName: string, topicDescrip
         })
     })
     .then(response => {
+        if (response.status === 400) {
+            throw new Error('errorTopicNameMandatory');
+        }
         if (response.status === 401 || response.status === 403) {
-            throw new Error();
+            navigate('/login');
         }
     })
-    .catch(() => navigate('/login'))
 }
 
 export function fetchVotes(courseId: string, token: string, navigate: NavigateFunction) {
