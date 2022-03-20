@@ -16,6 +16,18 @@ export default function AuthProvider({ children }: Param) {
 
     useEffect(() => {
         localStorage.setItem('jwt', token);
+        if (token) {
+            fetch(`${process.env.REACT_APP_BASE_URL}/api/users/me`, {
+                headers: {
+                    'Authorization': token
+                }
+            })
+            .then(response => response.json())
+            .then((currentUser: User) => {
+                setUser(currentUser);
+                setTimeout(() => navigate('/courses'));
+            });
+        }
     }, [token]);
 
     useEffect(() => {
@@ -23,16 +35,6 @@ export default function AuthProvider({ children }: Param) {
         const jwt = query.get('jwt');
         if (jwt) {
             setToken(jwt);
-            fetch(`${process.env.REACT_APP_BASE_URL}/api/users/me`, {
-                headers: {
-                    'Authorization': jwt
-                }
-            })
-            .then(response => response.json())
-            .then((user: User) => {
-                setUser(user);
-                setTimeout(() => navigate('/courses'));
-            })
         }
     }, [navigate])
 
