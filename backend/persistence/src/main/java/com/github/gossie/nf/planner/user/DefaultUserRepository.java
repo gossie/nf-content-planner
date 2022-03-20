@@ -17,13 +17,11 @@ class DefaultUserRepository implements UserRepository {
 
     @Override
     public User createUser(User user) {
-        if (user.email() == null && user.githubId() != null) {
-            return userMapper.map(userDocumentRepository.save(userMapper.map(user)));
-        }
+        return userMapper.map(userDocumentRepository.save(userMapper.map(user)));
+    }
 
-        userDocumentRepository.findByEmail(user.email()).ifPresent(u -> {
-            throw new IllegalStateException();
-        });
+    @Override
+    public User saveUser(User user) {
         return userMapper.map(userDocumentRepository.save(userMapper.map(user)));
     }
 

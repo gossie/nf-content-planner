@@ -19,7 +19,21 @@ class DefaultUserService implements UserService, UserDetailsService {
 
     @Override
     public User createUser(User user) {
-        return userRepository.createUser(user);
+        if (user.githubId() != null) {
+            if (user.email() != null) {
+                return userRepository.findByEmail(user.email())
+                        .map(savedUser -> savedUser.merge(user))
+                        .map(userRepository::saveUser)
+                        .orElseGet(() -> userRepository.createUser(user));
+            } else {
+                return userRepository.createUser(user);
+            }
+        } else {
+            userRepository.findByEmail(user.email()).ifPresent(u -> {
+                throw new IllegalStateException();
+            });
+            return userRepository.createUser(user);
+        }
     }
 
     @Override

@@ -6,6 +6,8 @@ public interface UserRepository {
 
     User createUser(User user);
 
+    User saveUser(User user);
+
     Optional<User> findByEmail(String email);
 
     Optional<User> findByGithubId(String githubId);
