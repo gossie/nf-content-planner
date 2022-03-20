@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "./auth/AuthProvider";
 import Button from "./common-elements/Button";
+import ErrorMessage from "./common-elements/ErrorMessage";
 import Input from "./common-elements/Input";
 import { addTopicToCourse, fetchCourse, fetchVotes } from "./http-client";
 import { Course } from "./model";
@@ -37,12 +38,17 @@ export default function CourseElement() {
     }, [fetchOneCourse, fetchLeftVotes]);
 
     const addTopic = () => {
-        addTopicToCourse(course, newTopicName, newTopicDescription, token, navigate)
-        .then(() => {
-            setNewTopicName('');
-            setNewTopicDescription('');
-            fetchOneCourse();
-        });
+        if (!newTopicName) {
+            setErrorMessage('errorTopicNameMandatory');
+        } else {
+            addTopicToCourse(course, newTopicName, newTopicDescription, token, navigate)
+                .then(() => {
+                    setNewTopicName('');
+                    setNewTopicDescription('');
+                    fetchOneCourse();
+                })
+                .catch(e => setErrorMessage(e.message));
+        }
     };
 /*
     const deleteExistingCourse = () => {
@@ -83,10 +89,13 @@ export default function CourseElement() {
                         <div className="border-r-2 mx-4" />
                         <div>
                             <h2 className="text-xl pb-5 font-bold">{t('headlineTopics')}</h2>
-                            <div className="flex flex-col mb-6">
-                                <Input placeholder="Topic" value={newTopicName} onChange={setNewTopicName} />
-                                <textarea className="border-b-2" placeholder="Beschreibung" value={newTopicDescription} onChange={ev => setNewTopicDescription(ev.target.value)}></textarea>
-                                <Button label="Speichern" onClick={addTopic} />
+                            <div className="mb-6">
+                                <div className="flex flex-col">
+                                    <Input placeholder="Topic" value={newTopicName} onChange={setNewTopicName} />
+                                    <textarea className="border-b-2" placeholder="Beschreibung" value={newTopicDescription} onChange={ev => setNewTopicDescription(ev.target.value)}></textarea>
+                                    <Button label="Speichern" onClick={addTopic} />
+                                </div>
+                                { errorMessage && <ErrorMessage message={errorMessage} /> }
                             </div>
                             <ul>
                                 {course.topics.map(t => <li key={t.id}><TopicElement topic={t} onTopicDeletion={() => {fetchOneCourse(); fetchLeftVotes();}} onTopicVote={(course: Course) => {setCourse(course); fetchLeftVotes();}} /></li>)}

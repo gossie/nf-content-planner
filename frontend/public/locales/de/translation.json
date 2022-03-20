@@ -17,6 +17,7 @@
     "buttonCreateCourse": "Kurs erstellen",
     "buttonDeleteCourse": "Kurs löschen",
     "headlineTopics": "Themen",
+    "errorTopicNameMandatory": "Der Name muss angegeben werden",
     "back": "Zurück",
     "votes": "Hallo {{name}}, du hast noch {{votes}} Stimmen.",
     "topicVotes": "{{votes}} Stimmen",

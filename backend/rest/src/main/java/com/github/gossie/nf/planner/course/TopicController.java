@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.security.Principal;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/courses/{courseId}/topics")
@@ -27,6 +28,10 @@ public class TopicController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> createTopic(@PathVariable String courseId, @RequestBody TopicDTO topic) {
+        if (topic.name() == null || Objects.equals(topic.name(), "")) {
+            return ResponseEntity.badRequest().build();
+        }
+
         return courseService.createTopic(courseId, topicMapper.map(topic))
                 .map(createdTopic -> ResponseEntity
                         .created(URI.create("/api/courses/" + courseId + "/topics/" + createdTopic.id()))
