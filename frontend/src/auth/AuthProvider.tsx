@@ -34,7 +34,7 @@ export default function AuthProvider({ children }: Param) {
             setToken(jwt);
             setTimeout(() => navigate('/courses'));
         }
-    }, [])
+    }, [navigate])
 
     const login = (email: string, password: string) => {
         return fetch(`${process.env.REACT_APP_BASE_URL}/api/users/login`, {
