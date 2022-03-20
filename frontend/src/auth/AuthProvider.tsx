@@ -9,10 +9,14 @@ interface Param {
 
 export default function AuthProvider({ children }: Param) {
 
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState(localStorage.getItem('jwt') ?? '');
     const [user, setUser] = useState({} as User);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        localStorage.setItem('jwt', token);
+    }, [token]);
 
     useEffect(() => {
         const query = new URLSearchParams(window.location.search);
