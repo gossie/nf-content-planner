@@ -23,10 +23,7 @@ export default function AuthProvider({ children }: Param) {
                 }
             })
             .then(response => response.json())
-            .then((currentUser: User) => {
-                setUser(currentUser);
-                setTimeout(() => navigate('/courses'));
-            });
+            .then((currentUser: User) => setUser(currentUser));
         }
     }, [token, navigate]);
 
@@ -35,6 +32,7 @@ export default function AuthProvider({ children }: Param) {
         const jwt = query.get('jwt');
         if (jwt) {
             setToken(jwt);
+            setTimeout(() => navigate('/courses'));
         }
     }, [])
 
