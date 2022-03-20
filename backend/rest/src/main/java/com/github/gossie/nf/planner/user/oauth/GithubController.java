@@ -64,6 +64,10 @@ public class GithubController {
     }
 
     private String getFirstname(String name) {
+        if (name == null) {
+            return null;
+        }
+
         String[] nameComponents = name.split(" ");
         if (nameComponents.length > 1) {
             return Arrays.stream(nameComponents).limit(nameComponents.length-1).collect(Collectors.joining(" "));
@@ -72,6 +76,10 @@ public class GithubController {
     }
 
     private String getLastname(String name) {
+        if (name == null) {
+            return null;
+        }
+
         String[] nameComponents = name.split(" ");
         if (nameComponents.length > 1) {
             return nameComponents[nameComponents.length-1];
