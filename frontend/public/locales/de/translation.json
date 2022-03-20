@@ -20,6 +20,7 @@
     "errorTopicNameMandatory": "Der Name muss angegeben werden",
     "back": "Zurück",
     "votes": "Hallo {{name}}, du hast noch {{votes}} Stimmen.",
+    "allVotes": "Insgesamt wurden {{votes}} Stimmen abgegeben.",
     "topicVotes": "{{votes}} Stimmen",
     "errorActionForbidden": "Du darfst diese Aktion nicht durchführen",
     "goToLogin": "Du hast schon einen Account?",

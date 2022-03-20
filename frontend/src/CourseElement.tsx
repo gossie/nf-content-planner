@@ -84,6 +84,8 @@ export default function CourseElement() {
                             */}
                             <div>
                                 <span>{t('votes', {"votes": leftVotes, "name": user.firstname})}</span>
+                                <br />
+                                <span>{t('allVotes', {"votes": course.topics.map(t => t.allVotes).reduce((prev, current) => prev + current, 0)})</span>
                             </div>
                         </div>
                         <div className="border-r-2 mx-4" />

@@ -20,6 +20,7 @@
     "errorTopicNameMandatory": "The topic name is mandatory",
     "back": "Back",
     "votes": "Hello {{name}}, you've got {{votes}} votes left.",
+    "allVotes": "In total there are {{votes}} votes.",
     "topicVotes": "{{votes}} votes",
     "errorActionForbidden": "You are not allowed to perform that action",
     "goToLogin": "Already got an account?",
