@@ -25,7 +25,7 @@ export default function AuthProvider({ children }: Param) {
             .then(response => response.json())
             .then((currentUser: User) => setUser(currentUser));
         }
-    }, [token, navigate]);
+    }, [token]);
 
     useEffect(() => {
         const query = new URLSearchParams(window.location.search);
