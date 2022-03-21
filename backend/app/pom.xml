@@ -23,12 +23,22 @@
 
         <dependency>
             <groupId>com.github.gossie</groupId>
-            <artifactId>nf-content-planner-persistence</artifactId>
+            <artifactId>nf-content-planner-user-persistence</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.gossie</groupId>
-            <artifactId>nf-content-planner-rest</artifactId>
+            <artifactId>nf-content-planner-course-persistence</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gossie</groupId>
+            <artifactId>nf-content-planner-user-rest</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gossie</groupId>
+            <artifactId>nf-content-planner-course-rest</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

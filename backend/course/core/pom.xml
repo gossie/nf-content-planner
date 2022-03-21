@@ -4,35 +4,27 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.gossie</groupId>
-        <artifactId>nf-content-planner-backend</artifactId>
+        <artifactId>nf-content-planner-course</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>nf-content-planner-persistence</artifactId>
+    <artifactId>nf-content-planner-course-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>nf-content-planner-persistence</name>
+    <name>nf-content-planner-course-core</name>
     <description>Demo to deploy frontend and backend</description>
+
     <dependencies>
         <dependency>
-            <groupId>com.github.gossie</groupId>
-            <artifactId>nf-content-planner-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
-
 </project>
