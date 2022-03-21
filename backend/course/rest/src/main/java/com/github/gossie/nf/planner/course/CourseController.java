@@ -16,8 +16,6 @@ import java.util.List;
 @RequestMapping("/api/courses")
 public class CourseController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CourseController.class);
-
     private final UserService userService;
     private final CourseService courseService;
     private final CourseDTOMapper courseMapper;
@@ -30,7 +28,6 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<List<CourseDTO>> getCourses(Principal principal) {
-        LOG.info("retrieve courses for user {}", principal.getName());
         return ResponseEntity.of(userService.findUser(principal.getName())
                 .map(user -> courseService.determineCourses().stream()
                         .map(course -> courseMapper.map(course, user.id()))
