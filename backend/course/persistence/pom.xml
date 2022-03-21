@@ -4,41 +4,23 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.gossie</groupId>
-        <artifactId>nf-content-planner-backend</artifactId>
+        <artifactId>nf-content-planner-course</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>nf-content-planner-rest</artifactId>
+    <artifactId>nf-content-planner-course-persistence</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>nf-content-planner-rest</name>
+    <name>nf-content-planner-course-persistence</name>
     <description>Demo to deploy frontend and backend</description>
     <dependencies>
         <dependency>
             <groupId>com.github.gossie</groupId>
-            <artifactId>nf-content-planner-core</artifactId>
+            <artifactId>nf-content-planner-course-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-hateoas</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
         <dependency>
@@ -46,5 +28,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
 </project>
