@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.gossie</groupId>
-        <artifactId>nf-content-planner-backend</artifactId>
+        <artifactId>nf-content-planner-user</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>nf-content-planner-core</artifactId>
+    <artifactId>nf-content-planner-user-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>nf-content-planner-core</name>
+    <name>nf-content-planner-user-core</name>
     <description>Demo to deploy frontend and backend</description>
 
     <dependencies>

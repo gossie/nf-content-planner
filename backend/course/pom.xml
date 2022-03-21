@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.github.gossie</groupId>
-		<artifactId>nf-content-planner-parent</artifactId>
+		<artifactId>nf-content-planner-backend</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>nf-content-planner-backend</artifactId>
-	<name>nf-content-planner-backend</name>
+	<artifactId>nf-content-planner-course</artifactId>
+	<name>nf-content-planner-course</name>
 	<packaging>pom</packaging>
 	
 	<properties>
@@ -16,9 +16,9 @@
 	</properties>
 	
 	<modules>
-		<module>user</module>
-		<module>course</module>
-		<module>app</module>
+		<module>core</module>
+		<module>persistence</module>
+		<module>rest</module>
 	</modules>
 	
 </project>
