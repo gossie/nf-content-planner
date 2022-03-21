@@ -70,6 +70,7 @@ export default function AuthProvider({ children }: Param) {
 
     const logout = () => {
         setToken('');
+        navigate('/login');
     };
 
     return (
