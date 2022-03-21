@@ -48,7 +48,7 @@ class DefaultCourseService implements CourseService {
                 .map(course -> {
                     Topic createdTopic = course.addTopic(topic);
                     courseRepository.save(course);
-                    LOG.info("topic with id {} was created on course with id {}", topic.id(), courseId);
+                    LOG.info("topic with id {} was created on course with id {}", createdTopic.id(), courseId);
                     return createdTopic;
                 });
     }
