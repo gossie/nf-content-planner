@@ -2,6 +2,8 @@ package com.github.gossie.nf.planner.course;
 
 import com.github.gossie.nf.planner.user.User;
 import com.github.gossie.nf.planner.user.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CourseController.class);
 
     private final UserService userService;
     private final CourseService courseService;
@@ -26,6 +30,7 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<List<CourseDTO>> getCourses(Principal principal) {
+        LOG.info("retrieve courses for user {}", principal.getName());
         return ResponseEntity.of(userService.findUser(principal.getName())
                 .map(user -> courseService.determineCourses().stream()
                         .map(course -> courseMapper.map(course, user.id()))

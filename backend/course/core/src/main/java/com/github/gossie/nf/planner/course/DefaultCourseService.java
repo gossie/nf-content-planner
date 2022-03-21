@@ -1,7 +1,7 @@
 package com.github.gossie.nf.planner.course;
 
 import com.github.gossie.nf.planner.user.User;
-import com.github.gossie.nf.planner.user.UserRepository;
+import com.github.gossie.nf.planner.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,18 +14,18 @@ import java.util.Optional;
 class DefaultCourseService implements CourseService {
 
     private final CourseRepository courseRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final int votesPerUser;
 
-    public DefaultCourseService(CourseRepository courseRepository, UserRepository userRepository, @Value("${app.user.max-votes}") int votesPerUser) {
+    public DefaultCourseService(CourseRepository courseRepository, UserService userService, @Value("${app.user.max-votes}") int votesPerUser) {
         this.courseRepository = courseRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.votesPerUser = votesPerUser;
     }
 
     @Override
     public Course createCourse(Course course) {
-        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+        User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
                 .orElseThrow(IllegalStateException::new);
         return courseRepository.create(course, user);
     }
