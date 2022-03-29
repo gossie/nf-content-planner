@@ -9,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,7 +47,7 @@ public class GithubController {
     }
 
     @GetMapping
-    public String callbackUrl(@RequestParam String code, Model model) {
+    public void callbackUrl(@RequestParam String code, HttpServletResponse response) throws ServletException, IOException {
         ResponseEntity<GitHubResponse> accessTokenResponse = restTemplate.postForEntity(ACCESS_TOKEN_URL + "?client_id=" + githubClientId + "&client_secret=" + githubAuthSecret + "&code=" + code, null, GitHubResponse.class);
 
         ResponseEntity<GitHubUser> userResponse = restTemplate.exchange(
@@ -61,9 +60,7 @@ public class GithubController {
         userService.findByGithubId(userResponse.getBody().id())
                 .orElseGet(() -> userService.createUser(new User(null, userResponse.getBody().email(), getFirstname(userResponse.getBody().name()), getLastname(userResponse.getBody().name()), null, userResponse.getBody().id(), List.of("USER"))));
 
-        model.addAttribute("jwt", jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
-
-        return "oauth-landing";
+        response.sendRedirect("/courses?jwt=" + jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
     }
 
     private String getFirstname(String name) {
