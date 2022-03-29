@@ -122,6 +122,24 @@
                 </executions>
             </plugin>
 
+            <!--plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-and-rename-file</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>rename</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>${project.build.directory}/classes/static/index.html</sourceFile>
+                            <destinationFile>${project.build.directory}/classes/static/app.html</destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
