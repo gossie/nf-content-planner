@@ -48,7 +48,7 @@ public class GithubController {
     }
 
     @GetMapping
-    public String callbackUrl(@RequestParam String code, Model model) {
+    public void callbackUrl(@RequestParam String code, HttpServletResponse response) throws IOException {
         ResponseEntity<GitHubResponse> accessTokenResponse = restTemplate.postForEntity(ACCESS_TOKEN_URL + "?client_id=" + githubClientId + "&client_secret=" + githubAuthSecret + "&code=" + code, null, GitHubResponse.class);
 
         ResponseEntity<GitHubUser> userResponse = restTemplate.exchange(
@@ -61,9 +61,9 @@ public class GithubController {
         userService.findByGithubId(userResponse.getBody().id())
                 .orElseGet(() -> userService.createUser(new User(null, userResponse.getBody().email(), getFirstname(userResponse.getBody().name()), getLastname(userResponse.getBody().name()), null, userResponse.getBody().id(), List.of("USER"))));
 
-        model.addAttribute("jwt", jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
+        //model.addAttribute("jwt", jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
 
-        return "oauth-landing";
+        response.sendRedirect("/app.html/courses?jwt=" + jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
     }
 
     private String getFirstname(String name) {
