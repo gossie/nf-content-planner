@@ -87,7 +87,7 @@ public class GithubController {
         return name;
     }
 
-    HttpHeaders createHeaders(String token){
+    private HttpHeaders createHeaders(String token){
         return new HttpHeaders() {{
             String authHeader = "Bearer " + token;
             set( "Authorization", authHeader );
