@@ -94,9 +94,6 @@
                         </goals>
                         <configuration>
                             <arguments>run build</arguments>
-                            <environmentVariables>
-                                <REACT_APP_BASE_URL>${env.HEROKU_BASE_URL}</REACT_APP_BASE_URL>
-                            </environmentVariables>
                         </configuration>
                     </execution>
                 </executions>
