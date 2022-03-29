@@ -8,12 +8,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
-//@Controller
+@Controller
 public class ReactRoutingForwarding {
 
-    //@GetMapping(value = "/**/{[path:[^\\.]*}")
+    @GetMapping(value = "/**/{[path:[^\\.]*}")
     public String forwardToRouteUrl() {
-        return "forward:/app.html";
+        return "forward:/";
     }
-
 }
