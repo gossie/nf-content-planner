@@ -1,0 +1,32 @@
+server:
+    port: ${PORT:8080}
+spring:
+    data:
+        mongodb:
+            uri: ${MONGODB_URI:mongodb://localhost:27017/nf-content-planner}
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+    thymeleaf:
+        excluded-view-names: index
+
+github:
+    client:
+        id: ${GITHUB_CLIENT_ID:clientId}
+        secret: ${GITHUB_AUTH_SECRET:clientSecret}
+
+app:
+    jwt:
+        secret: ${JWT_SECRET:my-jwt-secret}
+    user:
+        max-votes: 5
+
+logging:
+    file:
+        path: /logs
+    level:
+        com:
+            github:
+                gossie:
+                    nf:
+                        planner: DEBUG

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Content Planner - Oauth</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript">
+            setTimeout(() => {
+                localStorage.setItem("jwt", document.getElementById("jwt").textContent);
+            }, 500);
+        </script>
+    <meta http-equiv="refresh" content="1;URL='/courses'" />
+</head>
+
+<body>
+
+    <div style="text-align: center;">... Loading ...</div>
+    <span id="jwt" style="display:none" th:text="${jwt}"></span>
+
+</body>
+</html>
