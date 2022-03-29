@@ -63,7 +63,7 @@ public class GithubController {
 
         //model.addAttribute("jwt", jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
 
-        response.sendRedirect("/courses?jwt=" + jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
+        response.sendRedirect("/app.html/courses?jwt=" + jwtUtils.createToken(new HashMap<>(), userResponse.getBody().id()));
     }
 
     private String getFirstname(String name) {

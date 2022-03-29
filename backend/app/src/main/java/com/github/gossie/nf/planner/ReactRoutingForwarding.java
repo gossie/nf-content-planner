@@ -13,7 +13,7 @@ public class ReactRoutingForwarding {
 
     @GetMapping(value = "/**/{[path:[^\\.]*}")
     public String forwardToRouteUrl() {
-        return "forward:/";
+        return "forward:/app.html";
     }
 
 }
