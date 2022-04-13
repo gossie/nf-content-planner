@@ -1,6 +1,7 @@
 package com.github.gossie.nf.planner.user;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,12 +16,16 @@ class DefaultUserServiceTest {
     @Test
     void shouldCreateUser() {
         var user = new User(null, "test@email.de", "Max", "Mustermann", "123456a", null, List.of());
-        var createdUser = new User("4711", "test@email.de", "Max", "Mustermann", "123456a", null, List.of());
+        var userToSave = new User(null, "test@email.de", "Max", "Mustermann", "hashedPassword", null, List.of());
+        var createdUser = new User("4711", "test@email.de", "Max", "Mustermann", "hashedPassword", null, List.of());
 
         var userRepository = mock(UserRepository.class);
-        when(userRepository.createUser(user)).thenReturn(createdUser);
+        when(userRepository.createUser(userToSave)).thenReturn(createdUser);
 
-        var userService = new DefaultUserService(userRepository);
+        var passwordEncoder = mock(PasswordEncoder.class);
+        when(passwordEncoder.encode("123456a")).thenReturn("hashedPassword");
+
+        var userService = new DefaultUserService(userRepository, passwordEncoder);
 
         assertThat(userService.createUser(user)).isSameAs(createdUser);
     }
@@ -33,7 +38,7 @@ class DefaultUserServiceTest {
         var userRepository = mock(UserRepository.class);
         when(userRepository.createUser(user)).thenReturn(createdUser);
 
-        var userService = new DefaultUserService(userRepository);
+        var userService = new DefaultUserService(userRepository, null);
 
         assertThat(userService.createUser(user)).isSameAs(createdUser);
     }
@@ -46,7 +51,7 @@ class DefaultUserServiceTest {
         var userRepository = mock(UserRepository.class);
         when(userRepository.findByEmail("test@email.de")).thenReturn(Optional.of(savedUser));
 
-        var userService = new DefaultUserService(userRepository);
+        var userService = new DefaultUserService(userRepository, null);
 
         assertThatExceptionOfType(IllegalStateException.class)
                 .isThrownBy(() -> userService.createUser(user));
@@ -62,7 +67,7 @@ class DefaultUserServiceTest {
         when(userRepository.findByEmail(null)).thenReturn(Optional.of(otherGitHubUser));
         when(userRepository.createUser(user)).thenReturn(createdUser);
 
-        var userService = new DefaultUserService(userRepository);
+        var userService = new DefaultUserService(userRepository, null);
 
         assertThat(userService.createUser(user)).isSameAs(createdUser);
     }
@@ -78,7 +83,7 @@ class DefaultUserServiceTest {
         when(userRepository.findByEmail("test@email.de")).thenReturn(Optional.of(savedUser));
         when(userRepository.saveUser(mergedUser)).thenReturn(createdUser);
 
-        var userService = new DefaultUserService(userRepository);
+        var userService = new DefaultUserService(userRepository, null);
 
         assertThat(userService.createUser(user)).isSameAs(createdUser);
     }

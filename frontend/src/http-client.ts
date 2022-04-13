@@ -36,7 +36,8 @@ export function createCourse(courseName: string, token: string, navigate: Naviga
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'X-XSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1')
         },
         body: JSON.stringify({
             name: courseName,
@@ -55,7 +56,8 @@ export function deleteCourse(course: Course, token: string, navigate: NavigateFu
     return fetch(`${process.env.REACT_APP_BASE_URL}${course.links.find(l => l.rel === 'self')?.href}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'X-XSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1')
         }
     })
     .then(response => {
@@ -72,7 +74,8 @@ export function addTopicToCourse(course: Course, topicName: string, topicDescrip
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'X-XSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1')
         },
         body: JSON.stringify({
             name: topicName,
@@ -108,7 +111,8 @@ export function deleteTopic(topic: Topic, token: string, navigate: NavigateFunct
     return fetch(`${process.env.REACT_APP_BASE_URL}${topic.links.find(l => l.rel === 'self')?.href}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'X-XSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1')
         }
     })
     .then(response => {
@@ -124,7 +128,8 @@ export function voteForTopic(topic: Topic, token: string, navigate: NavigateFunc
     return fetch(`${process.env.REACT_APP_BASE_URL}${topic.links.find(l => l.rel === 'vote')?.href}`, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'X-XSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1')
         }
     })
     .then(response => {
@@ -140,7 +145,8 @@ export function removeVoteForTopic(topic: Topic, token: string, navigate: Naviga
     return fetch(`${process.env.REACT_APP_BASE_URL}${topic.links.find(l => l.rel === 'vote')?.href}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'X-XSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1')
         }
     })
     .then(response => {

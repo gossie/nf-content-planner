@@ -6,4 +6,8 @@ public record User(String id, String email, String firstname, String lastname, S
     public User merge(User user) {
         return new User(id, email, firstname, lastname, password, user.githubId(), authorities);
     }
+
+    public User encodePassword(String encodedPassword) {
+        return new User(id, email, firstname, lastname, encodedPassword, githubId, authorities);
+    }
 }

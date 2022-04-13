@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,9 +17,11 @@ class DefaultUserService implements UserService, UserDetailsService {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultUserService.class);
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public DefaultUserService(UserRepository userRepository) {
+    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -38,7 +41,7 @@ class DefaultUserService implements UserService, UserDetailsService {
         userRepository.findByEmail(user.email()).ifPresent(u -> {
             throw new IllegalStateException("e-mail is present in database");
         });
-        return userRepository.createUser(user);
+        return userRepository.createUser(user.encodePassword(passwordEncoder.encode(user.password())));
     }
 
     private User createGitHubUser(User user) {

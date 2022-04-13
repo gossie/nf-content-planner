@@ -25,13 +25,11 @@ public class UserController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
 
-    public UserController(UserService userService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
-        this.passwordEncoder = passwordEncoder;
         this.jwtUtils = jwtUtils;
     }
 
@@ -42,7 +40,7 @@ public class UserController {
         }
 
         try {
-            User createdUser = userService.createUser(new User(null, user.email(), user.firstname(), user.lastname(), passwordEncoder.encode(user.password()), null, List.of("USER")));
+            User createdUser = userService.createUser(new User(null, user.email(), user.firstname(), user.lastname(), user.password(), null, List.of("USER")));
             return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(createdUser.email(), createdUser.firstname(), createdUser.lastname(), "", ""));
         } catch(IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
