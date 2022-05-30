@@ -29,7 +29,7 @@ class DefaultCourseService implements CourseService {
 
     @Override
     public Course createCourse(Course course) {
-        User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+        User user = userService.findUser(SecurityContextHolder.getContext().getAuthentication().getName())
                 .orElseThrow(IllegalStateException::new);
 
         Course createdCourse = courseRepository.create(course, user);
